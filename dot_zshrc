@@ -2,9 +2,10 @@
 ZSH=/usr/share/oh-my-zsh/
 
 # User fcitx
-export XMODIFIERS=@im=fcitx
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im='fcitx'
+export GTK_IM_MODULE='fcitx'
+export QT_IM_MODULE='fcitx'
+export NVIM_APPNAME='nvim-alexis'
 
 # Update path
 export PATH="$HOME/.local/share/nvim-alexis/mason/bin:$PATH"
@@ -99,9 +100,11 @@ alias mkdir='mkdir -p'
 
 fastfetch
 
-alias v='NVIM_APPNAME=nvim-alexis nvim'
+alias v='nvim'
 alias cls='clear'
 alias cm='chezmoi'
+alias cma='chezmoi add'
+alias cmc='chezmoi git commit'
 alias lz='lazygit'
 alias yz='yazi'
 
