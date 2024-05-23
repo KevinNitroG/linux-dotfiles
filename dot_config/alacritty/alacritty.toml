@@ -1,0 +1,48 @@
+# https://alacritty.org/config-alacritty.html
+
+live_config_reload = true
+
+import = [
+    "~/.config/alacritty/themes/cattpuccin/catppuccin-mocha.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+TERMINAL = "alacritty"
+
+[shell]
+program = "zsh"
+
+[window]
+padding = { x = 2, y = 2 }
+dynamic_padding = true
+decorations = "None" # Full or None
+opacity = 0.9
+blur = false # don't work on hyprland
+startup_mode = "Maximized"
+
+[scrolling]
+multiplier = 15
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size = 12
+
+[colors]
+transparent_background_colors = true
+draw_bold_text_with_bright_colors = false
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+vi_mode_style = {shape = "Block", blinking = "Off"}
+
+[mouse]
+bindings = [ { mouse = "Right", mods = "Control", action = "Paste" } ]
+
+[terminal]
+osc52 = "CopyPaste"
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+]
