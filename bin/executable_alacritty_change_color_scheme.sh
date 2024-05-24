@@ -7,3 +7,5 @@ if grep -q "mocha" $ALACRITTY_CONFIG; then
 else
   sed -i "s/latte/mocha/" $ALACRITTY_CONFIG
 fi
+
+

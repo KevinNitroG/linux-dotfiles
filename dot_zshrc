@@ -3,9 +3,11 @@ ZSH=/usr/share/oh-my-zsh/
 
 # User fcitx
 export XMODIFIERS=@im='fcitx'
-export GTK_IM_MODULE='fcitx'
+# export GTK_IM_MODULE='fcitx'
 export QT_IM_MODULE='fcitx'
 export NVIM_APPNAME='nvim-alexis'
+# export TERM='alacritty'
+export TERM='xterm-256color'
 
 # Update path
 export PATH="$HOME/.local/share/nvim-alexis/mason/bin:$PATH"
@@ -105,7 +107,7 @@ alias cls='clear'
 alias cm='chezmoi'
 alias cma='chezmoi add'
 alias cmc='chezmoi git commit'
-alias lz='lazygit'
+alias lg='lazygit'
 alias yz='yazi'
 
 eval "$(starship init zsh)"

@@ -31,31 +31,32 @@ pacman_apps=(
   'neovim'
 
   # CLI Power Basics
+  # 'trash-cli'
+  # 'xsel'
   'aria2'
   'bat'
   'exa'
-  'fzf'
   'fd'
+  'fzf'
+  'git-delta'
   'jq'
   'ripgrep'
   'sd'
   'thefuck'
-  'tree'
   'tokei'
-  # 'trash-cli'
-  # 'xsel'
-  'zoxide'
-  'yazi'
+  'tree'
   'unzip'
+  'yazi'
+  'zoxide'
 
   # Development, languages, interpriters, compilers, etc
   # 'go'
-  'rustup'
-  'python-pip'
+  'clang'
+  'cmake'
   'nodejs'
   'npm'
-  'cmake'
-  'clang'
+  'python-pip'
+  'rustup'
 
   # Security Utilities
   'gnupg'
@@ -67,12 +68,12 @@ pacman_apps=(
 
   # CLI Fun
   'cowsay'
-  'lolcat'
   'fastfetch'
+  'lolcat'
 
   # Apps
-  'vlc'
   'obs-studio'
+  'vlc'
 )
 
 # Colors
