@@ -25,10 +25,16 @@ case $user_input in
 esac
 
 # Install packages
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/packages.sh)"
+echo "INSTALLING PACMAN PACKAGES..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/pacman_packages.sh)"
 
 # Install ohmyzsh
+echo "INSTALLING OHMYZSH..."
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install yay
+echo "INSTALLING YAY PACKAGES..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/yay_packages.sh)"
 
 # Chezmoi
 chezmoi init --apply --verbose git@github.com:KevinNitroG/linux-dotfiles.git
