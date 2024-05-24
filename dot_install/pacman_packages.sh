@@ -71,7 +71,8 @@ pacman_apps=(
   'fastfetch'
   'lolcat'
 
-  # Apps
+  # Apps / Tools
+  'gammastep'
   'obs-studio'
   'vlc'
 )
