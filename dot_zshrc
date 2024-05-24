@@ -1,6 +1,4 @@
-# Path to your oh-my-zsh installation.
-ZSH=/usr/share/oh-my-zsh/
-
+export ZSH="$HOME/.oh-my-zsh"
 # User fcitx
 export XMODIFIERS=@im='fcitx'
 # export GTK_IM_MODULE='fcitx'
@@ -19,6 +17,7 @@ plugins=(
   zsh-256color
   zsh-autosuggestions
   zsh-syntax-highlighting
+  history-substring-search
   wakatime
   fzf
   fzf-tab
@@ -117,8 +116,10 @@ eval "$(zoxide init zsh --cmd cd)"
 
 # Keybindings
 bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+# bindkey '^p' history-search-backward
+# bindkey '^n' history-search-forward
+bindkey '^p' history-substring-search-up
+bindkey '^n' history-substring-search-down
 bindkey '^[w' kill-region
 
 # History
