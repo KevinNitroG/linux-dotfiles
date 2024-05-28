@@ -31,32 +31,43 @@ pacman_apps=(
   'neovim'
 
   # CLI Power Basics
+  # 'aria2'
   # 'trash-cli'
   # 'xsel'
-  'aria2'
   'bat'
   'exa'
   'fd'
   'fzf'
   'git-delta'
+  'github-cli'
   'jq'
+  'lazydocker'
+  'rclone'
   'ripgrep'
   'sd'
   'thefuck'
   'tokei'
   'tree'
   'unzip'
+  'xh'
   'yazi'
   'zoxide'
 
-  # Development, languages, interpriters, compilers, etc
+  # Development, languages, interpreters, compilers, etc
   # 'go'
   'clang'
   'cmake'
+  'docker'
   'nodejs'
   'npm'
   'python-pip'
   'rustup'
+
+  # Formatter, Linter
+  'actionlint'
+  'eslint'
+  'prettier'
+  'ruff'
 
   # Security Utilities
   'gnupg'
@@ -74,7 +85,18 @@ pacman_apps=(
   # Apps / Tools
   'gammastep'
   'obs-studio'
+  'screenkey'
   'vlc'
+
+  # Fonts
+  'ttf-nerd-fonts-symbols'
+  'ttf-jetbrains-mono-nerd'
+  'noto-fonts-emoji'
+
+  # Other but IDK what it is :)
+  'lsb-release'
+  'pacman-contrib' # For paccache
+  'wtype'
 )
 
 # Colors
