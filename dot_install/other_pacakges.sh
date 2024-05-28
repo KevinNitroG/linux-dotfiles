@@ -1,12 +1,9 @@
 #!/bin/bash
 
 PIP_PACKAGES=(
-  'ruff'
-  'cpplint'
 )
 
 NPM_PACKAGES=(
-  'markdownlint'
   'commitizen'
 )
 

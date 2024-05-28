@@ -64,10 +64,10 @@ pacman_apps=(
   'rustup'
 
   # Formatter, Linter
-  'actionlint'
-  'eslint'
-  'prettier'
-  'ruff'
+  # 'actionlint'
+  # 'eslint'
+  # 'prettier'
+  # 'ruff'
 
   # Security Utilities
   'gnupg'
