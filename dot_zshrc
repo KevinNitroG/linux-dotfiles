@@ -8,7 +8,7 @@
 # Ref: https://github.com/siduck/dotfiles
 # #ef: https://github.com/craftzdog/dotfiles-public
 
-# Environment variables
+# ENVIRONMENT VARIABLES
 DISABLE_AUTO_UPDATE=true
 export ZSH="$HOME/.oh-my-zsh"
 export XMODIFIERS=@im='fcitx'
@@ -33,6 +33,10 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+has() {
+	command -v $1 >/dev/null
+}
 
 # List of plugins to use in oh-my-zsh
 plugins=(
@@ -98,34 +102,37 @@ function in {
     fi
 }
 
-# Helpful aliases
-alias  c='clear' # clear terminal
-alias  l='eza -lh  --icons=auto' # long list
-alias ls='eza -1   --icons=auto' # short list
-alias ll='eza -lha --icons=auto --sort=name --group-directories-first' # long list all
-alias ld='eza -lhD --icons=auto' # long list dirs
-alias lt='eza --icons=auto --tree' # list folder as tree
-alias un='$aurhelper -Rns' # uninstall package
-alias up='$aurhelper -Syu' # update system/package/aur
-alias pl='$aurhelper -Qs' # list installed package
-alias pa='$aurhelper -Ss' # list availabe package
-alias pc='$aurhelper -Sc' # remove unused cache
-alias po='$aurhelper -Qtdq | $aurhelper -Rns -' # remove unused packages, also try > $aurhelper -Qqd | $aurhelper -Rsu --print -
-alias vc='code' # gui code editor
 
-# Handy change dir shortcuts
+# ALIAS
+
+# Clear terminal
+alias  c='clear'
+alias cls='clear'
+
+# Ls
+if has eza; then
+  EZA_OPTS=(--group-directories-first -s Name -I '.DS_Store' --icon=auto)
+  alias l="eza -lh  $EZA_OPTS" # long list
+	alias ls="exa -1 $EZA_OPTS" # Normal ls
+	alias ll="exa -lag $EZA_OPTS"
+  alias ld="eza -lhD $EZA_OPTS" # long list dirs
+  alias lt="eza --icons=auto --tree $EZA_OPTS" # list folder as tree
+else
+	alias ls='ls -A --color=auto'
+	alias ll='ls -lAg --color=auto'
+fi
+
+# Change directory
 alias ..='cd ..'
 alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
-# Always mkdir a path (this doesn't inhibit functionality to make a single dir)
+# Make directory
 alias mkdir='mkdir -p'
 
-# My aliases
 alias v='nvim'
-alias cls='clear'
 alias cm='chezmoi'
 alias cma='chezmoi add'
 alias cmc='chezmoi git commit'
@@ -133,13 +140,15 @@ alias lg='lazygit'
 alias yz='yazi'
 alias t='tmux'
 
-# Keybindings
+
+# KEYBINDINGS
 bindkey -e
 bindkey '^p' history-substring-search-up
 bindkey '^n' history-substring-search-down
 bindkey '^[w' kill-region
+bindkey '^H' backward-kill-word # Source: https://www.reddit.com/r/neovim/comments/18txgth/ctrlbackspace_doesnt_work_as_intended_in_neovim
 
-# History
+# ZSH CONFIG
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
