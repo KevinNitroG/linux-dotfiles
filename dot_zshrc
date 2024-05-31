@@ -128,11 +128,19 @@ alias .5='cd ../../../../..'
 alias mkdir='mkdir -p'
 
 # Alias: Chezmoi
+cmc() {
+  [ -z "$1" ] && chezmoi git "commit -m $1" || chezmoi git "commit"
+  chezmoi git push
+}
+cms() { 
+  chezmoi re-add
+  chezmoi git "f" || echo 'No "f" alias for git!'; cmc
+}
 alias cm='chezmoi'
 alias cma='chezmoi add'
-alias cmc='chezmoi git commit'
 
 # Alias: Others
+alias rl='source ~/.zshrc'
 alias v='nvim'
 alias lg='lazygit'
 alias yz='yazi'
