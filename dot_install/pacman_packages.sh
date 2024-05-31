@@ -18,85 +18,86 @@
 
 # Apps to be installed via Pacman
 pacman_apps=(
-  # Essentials
-  'git'
-  'lazygit'
-  'tmux'
-  'wget'
+	# Essentials
+	'git'
+	'lazygit'
+	'tmux'
+	'wget'
 
-  # Terminal
-  'alacritty'
+	# Terminal
+	'alacritty'
 
-  # Text / Code Editor, IDE
-  'neovim'
+	# Text / Code Editor, IDE
+	'neovim'
 
-  # CLI Power Basics
-  # 'aria2'
-  # 'trash-cli'
-  # 'xsel'
-  'bat'
-  'exa'
-  'fd'
-  'fzf'
-  'git-delta'
-  'github-cli'
-  'jq'
-  'lazydocker'
-  'rclone'
-  'ripgrep'
-  'sd'
-  'thefuck'
-  'tokei'
-  'tree'
-  'unzip'
-  'xh'
-  'yazi'
-  'zoxide'
+	# CLI Power Basics
+	# 'aria2'
+	# 'trash-cli'
+	# 'xsel'
+	'bat'
+	'exa'
+	'fd'
+	'fzf'
+	'git-delta'
+	'github-cli'
+	'jq'
+	'lazydocker'
+	'rclone'
+	'ripgrep'
+	'sd'
+	'thefuck'
+	'tokei'
+	'tree'
+	'unzip'
+	'xh'
+	'yazi'
+	'zoxide'
 
-  # Development, languages, interpreters, compilers, etc
-  # 'go'
-  'clang'
-  'cmake'
-  'docker'
-  'nodejs'
-  'npm'
-  'python-pip'
-  'rustup'
+	# Development, languages, interpreters, compilers, etc
+	# 'go'
+	'clang'
+	'cmake'
+	'docker'
+	'gdb'
+	'nodejs'
+	'npm'
+	'python-pip'
+	'rustup'
 
-  # Formatter, Linter
-  # 'actionlint'
-  # 'eslint'
-  # 'prettier'
-  # 'ruff'
+	# Formatter, Linter
+	# 'actionlint'
+	# 'eslint'
+	# 'prettier'
+	# 'ruff'
 
-  # Security Utilities
-  'gnupg'
-  'openssl'
+	# Security Utilities
+	'gnupg'
+	'openssl'
 
-  # Monitoring, management and stats
-  'btop'
-  # 'speedtest-cli'
+	# Monitoring, management and stats
+	'btop'
+	# 'speedtest-cli'
 
-  # CLI Fun
-  'cowsay'
-  'fastfetch'
-  'lolcat'
+	# CLI Fun
+	'cowsay'
+	'fastfetch'
+	'lolcat'
 
-  # Apps / Tools
-  'gammastep'
-  'obs-studio'
-  'screenkey'
-  'vlc'
+	# Apps / Tools
+	'gammastep'
+	'obs-studio'
+	'screenkey'
+	'vlc'
 
-  # Fonts
-  'ttf-nerd-fonts-symbols'
-  'ttf-jetbrains-mono-nerd'
-  'noto-fonts-emoji'
+	# Fonts
+	'ttf-nerd-fonts-symbols'
+	'ttf-jetbrains-mono-nerd'
+	'noto-fonts-emoji'
 
-  # Other but IDK what it is :)
-  'lsb-release'
-  'pacman-contrib' # For paccache
-  'wtype'
+	# Other but IDK what it is :)
+	'lsb-release'
+	'pacman-contrib' # For paccache
+	'wtype'
 )
 
 # Colors
@@ -110,8 +111,8 @@ PROMPT_TIMEOUT=15 # When user is prompted for input, skip after x seconds
 
 # If set to auto-yes - then don't wait for user reply
 if [[ $* == *"--auto-yes"* ]]; then
-  PROMPT_TIMEOUT=0
-  REPLY='Y'
+	PROMPT_TIMEOUT=0
+	REPLY='Y'
 fi
 
 # Print intro message
@@ -123,19 +124,19 @@ echo -e "${RESET}"
 
 # Check if running as root, and prompt for password if not
 if [ "$EUID" -ne 0 ]; then
-  echo -e "${PURPLE}Elevated permissions are required to adjust system settings."
-  echo -e "${CYAN_B}Please enter your password...${RESET}"
-  sudo -v
-  if [ $? -eq 1 ]; then
-    echo -e "${YELLOW}Exiting, as not being run as sudo${RESET}"
-    exit 1
-  fi
+	echo -e "${PURPLE}Elevated permissions are required to adjust system settings."
+	echo -e "${CYAN_B}Please enter your password...${RESET}"
+	sudo -v
+	if [ $? -eq 1 ]; then
+		echo -e "${YELLOW}Exiting, as not being run as sudo${RESET}"
+		exit 1
+	fi
 fi
 
 # Check pacman actually installed
-if ! hash pacman 2> /dev/null; then
-  echo "${YELLOW_B}Pacman doesn't seem to be present on your system. Exiting...${RESET}"
-  exit 1
+if ! hash pacman 2>/dev/null; then
+	echo "${YELLOW_B}Pacman doesn't seem to be present on your system. Exiting...${RESET}"
+	exit 1
 fi
 
 # Prompt user to update package database
@@ -143,8 +144,8 @@ echo -e "${CYAN_B}Would you like to update package database? (y/N)${RESET}\n"
 read -t $PROMPT_TIMEOUT -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  echo -e "${PURPLE}Updating database...${RESET}"
-  sudo pacman -Syy --noconfirm
+	echo -e "${PURPLE}Updating database...${RESET}"
+	sudo pacman -Syy --noconfirm
 fi
 
 # Prompt user to upgrade currently installed packages
@@ -152,8 +153,8 @@ echo -e "${CYAN_B}Would you like to upgrade currently installed packages? (y/N)$
 read -t $PROMPT_TIMEOUT -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  echo -e "${PURPLE}Upgrading installed packages...${RESET}"
-  sudo pacman -Syu --noconfirm
+	echo -e "${PURPLE}Upgrading installed packages...${RESET}"
+	sudo pacman -Syu --noconfirm
 fi
 
 # Prompt user to clear old package caches
@@ -161,9 +162,9 @@ echo -e "${CYAN_B}Would you like to clear unused package caches? (y/N)${RESET}\n
 read -t $PROMPT_TIMEOUT -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  echo -e "${PURPLE}Freeing up disk space...${RESET}"
-  sudo pacman -Sc --noconfirm
-  paccache -r
+	echo -e "${PURPLE}Freeing up disk space...${RESET}"
+	sudo pacman -Sc --noconfirm
+	paccache -r
 fi
 
 # Prompt user to install all listed apps
@@ -171,19 +172,19 @@ echo -e "${CYAN_B}Would you like to install listed apps? (y/N)${RESET}\n"
 read -t $PROMPT_TIMEOUT -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  echo -e "${PURPLE}Starting install...${RESET}"
-  for app in ${pacman_apps[@]}; do
-    if hash "${app}" 2> /dev/null; then
-      echo -e "${YELLOW}[Skipping]${LIGHT} ${app} is already installed${RESET}"
-    elif [[ $(echo $(pacman -Qk $(echo $app | tr 'A-Z' 'a-z') 2> /dev/null )) == *"total files"* ]]; then
-      echo -e "${YELLOW}[Skipping]${LIGHT} ${app} is already installed via Pacman${RESET}"
-    elif hash flatpak 2> /dev/null && [[ ! -z $(echo $(flatpak list --columns=ref | grep $app)) ]]; then
-      echo -e "${YELLOW}[Skipping]${LIGHT} ${app} is already installed via Flatpak${RESET}"
-    else
-      echo -e "${PURPLE}[Installing]${LIGHT} Downloading ${app}...${RESET}"
-      sudo pacman -S ${app} --needed --noconfirm
-    fi
-  done
+	echo -e "${PURPLE}Starting install...${RESET}"
+	for app in ${pacman_apps[@]}; do
+		if hash "${app}" 2>/dev/null; then
+			echo -e "${YELLOW}[Skipping]${LIGHT} ${app} is already installed${RESET}"
+		elif [[ $(echo $(pacman -Qk $(echo $app | tr 'A-Z' 'a-z') 2>/dev/null)) == *"total files"* ]]; then
+			echo -e "${YELLOW}[Skipping]${LIGHT} ${app} is already installed via Pacman${RESET}"
+		elif hash flatpak 2>/dev/null && [[ ! -z $(echo $(flatpak list --columns=ref | grep $app)) ]]; then
+			echo -e "${YELLOW}[Skipping]${LIGHT} ${app} is already installed via Flatpak${RESET}"
+		else
+			echo -e "${PURPLE}[Installing]${LIGHT} Downloading ${app}...${RESET}"
+			sudo pacman -S ${app} --needed --noconfirm
+		fi
+	done
 fi
 
 echo -e "${PURPLE}Finished installing / updating Arch packages.${RESET}"
