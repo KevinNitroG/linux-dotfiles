@@ -129,12 +129,11 @@ alias mkdir='mkdir -p'
 
 # Alias: Chezmoi
 cmc() {
-  [ -z "$1" ] && chezmoi git "commit -m $1" || chezmoi git "commit"
-  chezmoi git push
+  { [ -n "$1" ] && chezmoi git "commit -m \"$1\"" || chezmoi git "commit"; } && chezmoi git push
 }
 cms() { 
   chezmoi re-add
-  chezmoi git "f" || echo 'No "f" alias for git!'; cmc
+  chezmoi git "f" || { echo 'No "f" alias for git!'; cmc; }
 }
 alias cm='chezmoi'
 alias cma='chezmoi add'
