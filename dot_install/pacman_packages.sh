@@ -98,6 +98,7 @@ pacman_apps=(
 	'lsb-release'
 	'pacman-contrib' # For paccache
 	'wtype'
+	'tree'
 )
 
 # Colors
