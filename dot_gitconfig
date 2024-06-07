@@ -39,7 +39,8 @@
 [user]
 	name = KevinNitroG
 	email = trannguyenthaibinh46@gmail.com
-	signingkey = ~/.ssh/id_ed25519.pub
+	signingkey = 071E9CD8A2D41057
+	; signingkey = ~/.ssh/id_ed25519.pub
 
 [alias]
   s = status
@@ -73,7 +74,8 @@
   pf = push --force-with-lease
 
 [gpg]
-	format = ssh
+	; format = ssh
+  program = gpg
 
 [commit]
 	gpgsign = true
