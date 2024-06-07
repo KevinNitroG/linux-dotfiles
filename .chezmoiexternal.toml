@@ -28,3 +28,7 @@ type = "git-repo"
 url = "https://github.com/catppuccin/delta.git"
 refreshPeriod = "168h"
 
+[".config/kitty/themes/mocha.conf"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/mocha.conf"
+refreshPeriod = "168h"
