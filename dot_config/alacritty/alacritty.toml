@@ -7,7 +7,8 @@ import = [
 ]
 
 [env]
-TERM = "xterm-256color"
+# TERM = "xterm-256color"
+TERM = "alacritty"
 TERMINAL = "alacritty"
 
 [shell]
