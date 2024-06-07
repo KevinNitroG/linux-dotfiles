@@ -52,6 +52,7 @@ pacman_apps=(
 	'xh'
 	'yazi'
 	'zoxide'
+	'wget'
 
 	# Development, languages, interpreters, compilers, etc
 	# 'go'
