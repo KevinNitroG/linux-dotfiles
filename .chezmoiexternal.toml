@@ -32,3 +32,8 @@ refreshPeriod = "168h"
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/mocha.conf"
 refreshPeriod = "168h"
+
+[".config/glow/themes/catppuccin-mocha.json"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/glamour/main/themes/catppuccin-mocha.json"
+refreshPeriod = "168h"

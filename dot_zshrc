@@ -17,6 +17,7 @@ export NVIM_APPNAME='nvim'
 export TERM='xterm-256color'
 export EDITOR='nvim'
 export VISUAL='code'
+export PAGER='delta'
 # https://github.com/catppuccin/fzf - not use background for transparent
 export FZF_DEFAULT_OPTS=" \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \

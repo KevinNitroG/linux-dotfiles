@@ -49,10 +49,11 @@ pacman_apps=(
 	'tokei'
 	'tree'
 	'unzip'
+	'wget'
 	'xh'
 	'yazi'
 	'zoxide'
-	'wget'
+	'glow'
 
 	# Development, languages, interpreters, compilers, etc
 	# 'go'
