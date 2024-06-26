@@ -40,6 +40,7 @@ pacman_apps=(
 	'fzf'
 	'git-delta'
 	'github-cli'
+	'glow'
 	'jq'
 	'lazydocker'
 	'rclone'
@@ -53,7 +54,7 @@ pacman_apps=(
 	'xh'
 	'yazi'
 	'zoxide'
-	'glow'
+	'zip'
 
 	# Development, languages, interpreters, compilers, etc
 	# 'go'
