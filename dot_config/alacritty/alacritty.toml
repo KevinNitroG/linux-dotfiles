@@ -37,7 +37,7 @@ transparent_background_colors = true
 draw_bold_text_with_bright_colors = false
 
 [cursor]
-style = { shape = "Beam", blinking = "On" }
+style = { shape = "Beam", blinking = "Off" }
 vi_mode_style = {shape = "Block", blinking = "Off"}
 
 [mouse]
