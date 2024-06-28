@@ -152,8 +152,17 @@ alias v='nvim'
 alias lg='lazygit'
 alias yz='yazi'
 alias t='tmux'
+alias ta='tmux attach'
+alias tkss='tmux kill-server'
 alias c='clear'
 alias cls='clear'
+
+
+# FUNCTIONS
+
+tks() { 
+  tmux kill-session -t $1
+}
 
 
 # KEYBINDINGS
