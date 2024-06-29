@@ -103,8 +103,9 @@ pacman_apps=(
 	# Other but IDK what it is :)
 	'lsb-release'
 	'pacman-contrib' # For paccache
-	'wtype'
 	'tree'
+	'wtype'
+	'gtk4'
 )
 
 # Colors
