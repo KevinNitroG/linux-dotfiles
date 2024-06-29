@@ -214,6 +214,7 @@ bindkey -s '^d' 'yzcd\n'
 
 # FZF CONFIG
 source ~/.zsh/fzf.sh
+source ~/.zsh/wifi.sh
 
 
 # RUN SOME STUFF

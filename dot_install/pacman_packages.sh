@@ -38,6 +38,7 @@ pacman_apps=(
 	'exa'
 	'fd'
 	'fzf'
+	'gh'
 	'git-delta'
 	'github-cli'
 	'glow'
@@ -53,8 +54,8 @@ pacman_apps=(
 	'wget'
 	'xh'
 	'yazi'
-	'zoxide'
 	'zip'
+	'zoxide'
 
 	# Development, languages, interpreters, compilers, etc
 	# 'go'
@@ -89,6 +90,8 @@ pacman_apps=(
 	# Apps / Tools
 	'gammastep'
 	'obs-studio'
+	'qbittorrent-enhanced'
+	'rclone'
 	'screenkey'
 	'vlc'
 
