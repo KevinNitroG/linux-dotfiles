@@ -39,11 +39,8 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$HOME/.scripts:$PATH"
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-has() {
-	command -v $1 >/dev/null
-}
 
-# List of plugins to use in oh-my-zsh
+# LIST OF PLUGINS TO USE IN OH-MY-ZSH
 plugins=(
   git
   sudo
@@ -55,111 +52,11 @@ plugins=(
   fzf
   fzf-tab
   archlinux
+  docker
+  docker-compose
+  tmux
 )
 source $ZSH/oh-my-zsh.sh
-
-# In case a command is not found, try to find the package that has it
-# function command_not_found_handler {
-#     local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
-#     printf 'zsh: command not found: %s\n' "$1"
-#     local entries=( ${(f)"$(/usr/bin/pacman -F --machinereadable -- "/usr/bin/$1")"} )
-#     if (( ${#entries[@]} )) ; then
-#         printf "${bright}$1${reset} may be found in the following packages:\n"
-#         local pkg
-#         for entry in "${entries[@]}" ; do
-#             local fields=( ${(0)entry} )
-#             if [[ "$pkg" != "${fields[2]}" ]] ; then
-#                 printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
-#             fi
-#             printf '    /%s\n' "${fields[4]}"
-#             pkg="${fields[2]}"
-#         done
-#     fi
-#     return 127
-# }
-
-# Detect the AUR wrapper
-if pacman -Qi yay &>/dev/null ; then
-   aurhelper="yay"
-elif pacman -Qi paru &>/dev/null ; then
-   aurhelper="paru"
-fi
-
-function in {
-    local -a inPkg=("$@")
-    local -a arch=()
-    local -a aur=()
-
-    for pkg in "${inPkg[@]}"; do
-        if pacman -Si "${pkg}" &>/dev/null ; then
-            arch+=("${pkg}")
-        else 
-            aur+=("${pkg}")
-        fi
-    done
-
-    if [[ ${#arch[@]} -gt 0 ]]; then
-        sudo pacman -S "${arch[@]}"
-    fi
-
-    if [[ ${#aur[@]} -gt 0 ]]; then
-        ${aurhelper} -S "${aur[@]}"
-    fi
-}
-
-
-# ALIAS
-# Ls
-if has eza; then
-  EZA_OPTS=(--group-directories-first -s Name -I '.DS_Store' --icons=auto --colour=always)
-  alias l="eza -lh  $EZA_OPTS" # long list
-	alias ls="exa -1 $EZA_OPTS" # Normal ls
-	alias ll="exa -lag $EZA_OPTS"
-  alias ld="eza -lhD $EZA_OPTS" # long list dirs
-  alias lt="eza --icons=auto --tree $EZA_OPTS" # list folder as tree
-else
-	alias ls='ls -A --color=auto'
-	alias ll='ls -lAg --color=auto'
-fi
-
-# Change directory
-alias ..='cd ..'
-alias ...='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
-
-# Make directory
-alias mkdir='mkdir -p'
-
-# Alias: Chezmoi
-cmc() {
-  { [ -n "$1" ] && chezmoi git "commit -m \"$1\"" || chezmoi git "commit"; } && chezmoi git push
-}
-cms() { 
-  chezmoi re-add
-  chezmoi git "f" || { echo 'No "f" alias for git!'; cmc; }
-}
-alias cm='chezmoi'
-alias cma='chezmoi add'
-
-# Alias: Others
-alias rl='source ~/.zshrc'
-alias v='nvim'
-alias lg='lazygit'
-alias yz='yazi'
-alias t='tmux'
-alias ta='tmux attach'
-alias tkss='tmux kill-server'
-alias c='clear'
-alias cls='clear'
-
-
-# FUNCTIONS
-
-tks() { 
-  tmux kill-session -t $1
-}
 
 
 # KEYBINDINGS
@@ -183,7 +80,7 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# Completion styling
+# ZSH STYLE
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu no
@@ -195,7 +92,48 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always --ico
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
 
 
-# YAZI CONFIG
+# ALIAS / FUNCTION
+# Ls
+if has eza; then
+  EZA_OPTS=(--group-directories-first -s Name -I '.DS_Store' --icons=auto --colour=always)
+  alias l="eza -lh  $EZA_OPTS" # long list
+	alias ls="exa -1 $EZA_OPTS" # Normal ls
+	alias ll="exa -lag $EZA_OPTS"
+  alias ld="eza -lhD $EZA_OPTS" # long list dirs
+  alias lt="eza --icons=auto --tree $EZA_OPTS" # list folder as tree
+else
+	alias ls='ls -A --color=auto'
+	alias ll='ls -lAg --color=auto'
+fi
+
+# Change directory
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
+
+# Make directory
+alias mkdir='mkdir -p'
+
+# Chezmoi
+cmc() {
+  { [ -n "$1" ] && chezmoi git "commit -m \"$1\"" || chezmoi git "commit"; } && chezmoi git push
+}
+cms() { 
+  chezmoi re-add
+  chezmoi git "f" || { echo 'No "f" alias for git!'; cmc; }
+}
+alias cm='chezmoi'
+alias cma='chezmoi add'
+
+# Tmux
+tks() { 
+  tmux kill-session -t $1
+}
+alias t='tmux'
+alias ta='tmux attach'
+alias tkss='tmux kill-server'
 
 # ChatGPT gen it for me :(
 yzcd() {
@@ -207,8 +145,16 @@ yzcd() {
   fi
   rm "$tmp"
 }
-
 bindkey -s '^d' 'yzcd\n'
+
+# Others
+alias rl='source ~/.zshrc'
+alias v='nvim'
+alias lg='lazygit'
+alias yz='yazi'
+alias c='clear'
+alias cls='clear'
+
 
 # FZF CONFIG
 source ~/.zsh/fzf.sh
