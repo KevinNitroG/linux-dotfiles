@@ -33,7 +33,7 @@ bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
 size = 12
 
 [colors]
-transparent_background_colors = true
+transparent_background_colors = false
 draw_bold_text_with_bright_colors = false
 
 [cursor]
