@@ -1,15 +1,19 @@
-# Ref: https://github.com/mischavandenburg/dotfiles
-# Ref: https://github.com/dreamsofautonomy/zensh
-# Ref: https://github.com/Alexis12119/dotfiles
-# Ref: https://github.com/stevearc/dotfiles
-# Ref: https://github.com/omerxx/dotfiles
-# Ref: https://github.com/rusty-electron/dotfiles
-# Ref: https://github.com/chaneyzorn/dotfiles
-# Ref: https://github.com/siduck/dotfiles
-# #ef: https://github.com/craftzdog/dotfiles-public
+# REF:
+# - https://github.com/mischavandenburg/dotfiles
+# - https://github.com/dreamsofautonomy/zensh
+# - https://github.com/Alexis12119/dotfiles
+# - https://github.com/stevearc/dotfiles
+# - https://github.com/omerxx/dotfiles
+# - https://github.com/rusty-electron/dotfiles
+# - https://github.com/chaneyzorn/dotfiles
+# - https://github.com/siduck/dotfiles
+# - https://github.com/craftzdog/dotfiles-public
 
+
+##########################################
 
 # ENVIRONMENT VARIABLES
+
 DISABLE_AUTO_UPDATE=true
 export ZSH="$HOME/.oh-my-zsh"
 export NVIM_APPNAME='nvim'
@@ -38,9 +42,13 @@ export FZF_DEFAULT_OPTS=" \
 export PATH="$HOME/.local/share/nvim/mason/bin:$HOME/.scripts:$PATH"
 
 
+##########################################
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+
+##########################################
 
 # LIST OF PLUGINS TO USE IN OH-MY-ZSH
 plugins=(
@@ -61,10 +69,15 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 
+##########################################
+
 # UTILS
 has() {
 	command -v $1 >/dev/null
 }
+
+
+##########################################
 
 # KEYBINDINGS
 bindkey -e
@@ -72,6 +85,9 @@ bindkey '^p' history-substring-search-up
 bindkey '^n' history-substring-search-down
 bindkey '^[w' kill-region # Delete all words before cursor
 bindkey '^H' backward-kill-word # Source: https://www.reddit.com/r/neovim/comments/18txgth/ctrlbackspace_doesnt_work_as_intended_in_neovim
+
+
+##########################################
 
 # ZSH CONFIG
 HISTSIZE=5000
@@ -87,6 +103,9 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+
+##########################################
+
 # ZSH STYLE
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -98,6 +117,8 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
 
+
+##########################################
 
 # ALIAS / FUNCTION
 # Ls
@@ -163,10 +184,132 @@ alias c='clear'
 alias cls='clear'
 
 
-# FZF CONFIG
-source ~/.zsh/fzf.sh
-source ~/.zsh/wifi.sh
+##########################################
 
+# FZF CONFIG
+
+__fzf_open_path() {
+	local input_path=$1
+
+	if [ ! -n "$input_path" ]; then
+		echo 'No choice'
+		return 1
+	fi
+	echo '[ ] cd'
+	echo '[r] remove'
+	echo '[v] nvim'
+	echo -n 'Enter your choice: '
+	read choice
+
+	if [[ "$input_path" =~ ^[^:]*:[^:]*:[^:]*:.*$ ]]; then
+		input_path="${input_path%%:*}"
+	fi
+
+	case $choice in
+	'' | ' ')
+		if [ -f "$input_path" ]; then
+			input_path=$(dirname "$input_path")
+		fi
+		cd "$input_path"
+		;;
+	'r' | 'R') rm -rf "$input_path" ;;
+	'v' | 'V') nvim "$input_path" ;;
+	*) echo 'Selection is invalid!' ;;
+	esac
+}
+
+__fzf_get_path_using_fd() {
+	local input_path=$(
+		fd --type file |
+			fzf --prompt 'Files> ' \
+				--header 'CTRL-S: Switch between Files/Directories' \
+				--bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ Files ]] &&
+        echo "change-prompt(Files> )+reload(fd --type file)" ||
+        echo "change-prompt(Directories> )+reload(fd --type directory)"' \
+				--preview '[[ $FZF_PROMPT =~ Files ]] && bat --color=always {} || tree -C {}'
+	)
+	echo "$input_path"
+}
+
+__fzf_get_path_using_rg() {
+	rm -f /tmp/rg-fzf-{r,f}
+	local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+	local INITIAL_QUERY="${*:-}"
+	local input_path=$(
+		fzf --ansi --disabled --query "$INITIAL_QUERY" \
+			--bind "start:reload:$RG_PREFIX {q}" \
+			--bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+			--bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
+      echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
+      echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
+			--color "hl:-1:underline,hl+:-1:underline:reverse" \
+			--prompt '1. ripgrep> ' \
+			--delimiter : \
+			--header 'CTRL-S: Switch between ripgrep/fzf' \
+			--preview 'bat --color=always {1} --highlight-line {2}' \
+			--preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+	)
+	echo "$input_path"
+}
+
+fdg() {
+	__fzf_open_path "$(__fzf_get_path_using_fd)"
+}
+
+rgg() {
+	__fzf_open_path "$(__fzf_get_path_using_rg)"
+}
+
+bindkey -s '^g' 'rgg\n'
+bindkey -s '^f' 'fdg\n'
+
+
+##########################################
+
+# WIFI
+# Source: https://gist.github.com/guyzmo/146423d0cf7d3c0a46e10eeb66883905
+
+connect_wifi() {
+	local ssid
+	local conn
+
+	nmcli device wifi rescan >/dev/null
+	ssid=$(nmcli device wifi list | tail -n +2 | grep -v '^  *\B--\B' | fzf -m | sed 's/^ *\*//' | awk '{print $1}')
+
+	if [ "x$ssid" != "x" ]; then
+		# check if the SSID has already a connection setup
+		conn=$(nmcli con | grep "$ssid" | awk '{print $1}' | uniq)
+		if [ "x$conn" = "x$ssid" ]; then
+			echo "Please wait while switching to known network $ssid…"
+			# if yes, bring up that connection
+			nmcli con up id "$conn"
+		else
+			echo "Please wait while connecting to new network $ssid…"
+			# if not connect to it and ask for the password
+			nmcli device wifi connect "$ssid"
+		fi
+	fi
+}
+
+get_current_wifi_password() {
+	nmcli device wifi show-password
+}
+
+get_wifi_password() {
+	local ssid
+	ssid=$(nmcli --colors=no --fields=NAME --terse connection show | fzf)
+
+	if [[ -z "$ssid" ]]; then
+		echo "No SSID was selected!"
+		return
+	fi
+	local password=$(nmcli -s -g 802-11-wireless-security.psk connection show $ssid)
+	echo "SSID: $ssid"
+	echo "PASSWORD: $password"
+}
+
+
+##########################################
 
 # RUN SOME STUFF
 fastfetch
