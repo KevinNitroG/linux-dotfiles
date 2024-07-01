@@ -13,9 +13,17 @@
   export GTK_IM_MODULE=fcitx
   export QT_IM_MODULE=fcitx
   ```
-
 - GTK setup ...
 
 > [!NOTE]
 >
 > Ref: [Fcitx 5 Setup](https://fcitx-im.org/wiki/Setup_Fcitx)
+
+## UTILS
+
+### Systemctl
+
+- Clean services
+  ```sh
+  systemctl reset-failed
+  ```
