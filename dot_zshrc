@@ -59,11 +59,16 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 
+# UTILS
+has() {
+	command -v $1 >/dev/null
+}
+
 # KEYBINDINGS
 bindkey -e
 bindkey '^p' history-substring-search-up
 bindkey '^n' history-substring-search-down
-bindkey '^[w' kill-region
+bindkey '^[w' kill-region # Delete all words before cursor
 bindkey '^H' backward-kill-word # Source: https://www.reddit.com/r/neovim/comments/18txgth/ctrlbackspace_doesnt_work_as_intended_in_neovim
 
 # ZSH CONFIG
