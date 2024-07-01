@@ -101,11 +101,11 @@ pacman_apps=(
 	'noto-fonts-emoji'
 
 	# Other but IDK what it is :)
+	# 'pacman-contrib' # For paccache
+	'gtk4'
 	'lsb-release'
-	'pacman-contrib' # For paccache
 	'tree'
 	'wtype'
-	'gtk4'
 )
 
 # Colors
