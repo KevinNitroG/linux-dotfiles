@@ -1,0 +1,24 @@
+let mapleader = " "
+
+set clipboard=unnamed
+set smartcase
+set hlsearch
+set ignorecase
+set shortmess+=Ac
+set whichwrap+=<,>,[,],h,l
+
+inoremap jk <Esc>
+
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap Y y$
+nnoremap <Esc> :noh<return>
+nnoremap <leader>y :%y+<return>
+nnoremap <leader>D :%d+<return>
+vnoremap p "_dP
+
+" https://wiki.archlinux.org/title/Fcitx5#Automatically_switch_input_methods_in_vim
+"let fcitx5state=system("fcitx5-remote")
+"autocmd InsertLeave * :silent let fcitx5state=system("fcitx5-remote")[0] | silent !fcitx5-remote -c
+"autocmd InsertEnter * :silent if fcitx5state == 2 | call system("fcitx5-remote -o") | endif
+"
