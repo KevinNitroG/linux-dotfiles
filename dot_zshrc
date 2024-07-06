@@ -55,8 +55,36 @@ source $ZSH/oh-my-zsh.sh
 ##########################################
 
 # UTILS
+
 has() {
 	command -v $1 >/dev/null
+}
+
+# EVALX
+declare -A _EVALX_COMMANDS=( 
+  [source_chezmoi_completion]="chezmoi completion zsh"
+  [source_Hyde_completion]="source Hyde.zsh"
+  [clean_pacman]="sudo pacman -Scc"
+  [clean_flatpak]="flatpak uninstall --unused"
+)
+
+evalx() {
+  local commands=$(printf "%s\n" "${(@k)_EVALX_COMMANDS}" | fzf --multi)
+  for key in "${commands[@]}"
+  do
+    eval "${_EVALX_COMMANDS[$key]}"
+  done
+}
+
+clean_all() {
+  if has pacman; then
+    printf "\nCLEAN PACMAN..."
+    eval "${_EVALX_COMMANDS[clean_pacman]}"
+  fi
+  if has flatpak; then
+    printf "\nCLEAN FLATPAK..."
+    eval "${_EVALX_COMMANDS[clean_flatpak]}"
+  fi
 }
 
 
