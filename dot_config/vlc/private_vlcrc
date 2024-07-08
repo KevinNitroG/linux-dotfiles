@@ -983,7 +983,7 @@ freetype-monofont=Noto Sans Mono
 #freetype-fontsize=0
 
 # Relative font size (integer)
-#freetype-rel-fontsize=0
+freetype-rel-fontsize=20
 
 # Text opacity (integer)
 #freetype-opacity=255
@@ -3733,7 +3733,7 @@ text-renderer=any
 #sub-autodetect-path=./Subtitles, ./subtitles, ./Subs, ./subs
 
 # Force subtitle position (integer)
-#sub-margin=0
+sub-margin=-2
 
 # Subpictures source module (string)
 #sub-source=
