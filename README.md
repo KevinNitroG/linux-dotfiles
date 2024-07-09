@@ -5,21 +5,26 @@
 
 ---
 
-## FCITX5
+## UTILS
 
-- Set evironment variables in `.zshrc`
-  ```sh
-  export XMODIFIERS=@im=fcitx
-  export GTK_IM_MODULE=fcitx
-  export QT_IM_MODULE=fcitx
-  ```
-- GTK setup ...
+### Rclone mount
 
 > [!NOTE]
 >
-> Ref: [Fcitx 5 Setup](https://fcitx-im.org/wiki/Setup_Fcitx)
+> Guide: https://github.com/rclone/rclone/wiki/Systemd-rclone-mount
 
-## UTILS
+- Create dir
+  ```sh
+  mkdir ~/<remote-name>
+  ```
+- Start service
+  ```sh
+  systemctl --user start rclone@<remote-name>
+  ```
+- Enable service _(auto start to mount)_
+  ```sh
+  systemctl --user enable rclone@<remote-name>
+  ```
 
 ### Systemctl
 
