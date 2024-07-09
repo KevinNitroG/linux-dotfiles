@@ -103,6 +103,7 @@ pacman_apps=(
 
   # Other but IDK what it is :)
   # 'pacman-contrib' # For paccache
+  'fuse3' # for rclone mount --daemon
   'gtk4'
   'lsb-release'
   'tree'
