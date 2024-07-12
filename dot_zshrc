@@ -62,10 +62,11 @@ has() {
 
 # EVALX
 declare -A _EVALX_COMMANDS=( 
-  [source_chezmoi_completion]="chezmoi completion zsh"
-  [source_Hyde_completion]="source Hyde.zsh"
-  [clean_pacman]="sudo pacman -Scc"
   [clean_flatpak]="flatpak uninstall --unused"
+  [clean_pacman]="sudo pacman -Scc"
+  [source_Hyde_completion]="source Hyde.zsh"
+  [source_chezmoi_completion]="source <(chezmoi completion zsh)"
+  [source_warp_cli_completion]="source <(warp-cli generate-completions zsh)"
 )
 
 evalx() {
