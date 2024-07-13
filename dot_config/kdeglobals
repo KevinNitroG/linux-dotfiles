@@ -1,0 +1,8 @@
+[General]
+TerminalApplication=alacritty
+
+[KDE]
+ShowDeleteCommand=false
+
+[PreviewSettings]
+MaximumRemoteSize=0
