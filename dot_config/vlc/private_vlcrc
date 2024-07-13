@@ -883,7 +883,7 @@
 [stream_out_transcode] # Transcode stream output
 
 # Video encoder (string)
-#sout-transcode-venc=
+sout-transcode-venc=any
 
 # Destination video codec (string)
 #sout-transcode-vcodec=
@@ -919,7 +919,7 @@
 #sout-transcode-vfilter=
 
 # Audio encoder (string)
-#sout-transcode-aenc=
+sout-transcode-aenc=any
 
 # Destination audio codec (string)
 #sout-transcode-acodec=
@@ -940,7 +940,7 @@
 #sout-transcode-afilter=
 
 # Subtitle encoder (string)
-#sout-transcode-senc=
+sout-transcode-senc=any
 
 # Destination subtitle codec (string)
 #sout-transcode-scodec=
@@ -3203,7 +3203,7 @@ marq-position=0
 #qt-recentplay-filter=
 
 # Continue playback? (integer)
-#qt-continue=1
+qt-continue=2
 
 # Embed the file browser in open dialog (boolean)
 #qt-embedded-open=0
@@ -3625,7 +3625,7 @@ qt-privacy-ask=0
 #video-title-timeout=5000
 
 # Position of video title (integer)
-#video-title-position=8
+video-title-position=4
 
 # Hide cursor and fullscreen controller after x milliseconds (integer)
 #mouse-hide-timeout=1000
@@ -3958,7 +3958,7 @@ sub-margin=-2
 #sap-interval=5
 
 # Mux module (string)
-#mux=
+mux=any
 
 # Access output module (string)
 #access_output=
