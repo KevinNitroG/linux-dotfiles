@@ -1,3 +1,14 @@
+[".gits/useful-script"]
+type = "git-repo"
+url = "https://github.com/HoangTran0410/useful-script.git"
+refreshPeriod = "168h"
+
+
+[".gits/bypass-paywalls-chrome"]
+type = "git-repo"
+url = "https://github.com/iamadamdev/bypass-paywalls-chrome.git"
+refreshPeriod = "168h"
+
 [".config/alacritty/themes/catppuccin"]
 type = "git-repo"
 url = "https://github.com/catppuccin/alacritty.git"
