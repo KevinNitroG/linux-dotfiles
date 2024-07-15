@@ -48,6 +48,9 @@ plugins=(
   docker
   docker-compose
   tmux
+  dotenv
+  extract
+  fancy-ctrl-z
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -207,27 +210,21 @@ __fzf_open_path() {
 		echo 'No choice'
 		return 1
 	fi
-	echo '[ ] cd'
-	echo '[r] remove'
-	echo '[v] nvim'
-	echo -n 'Enter your choice: '
-	read choice
 
 	if [[ "$input_path" =~ ^[^:]*:[^:]*:[^:]*:.*$ ]]; then
 		input_path="${input_path%%:*}"
 	fi
 
-	case $choice in
-	'' | ' ')
-		if [ -f "$input_path" ]; then
-			input_path=$(dirname "$input_path")
-		fi
-		cd "$input_path"
-		;;
-	'r' | 'R') rm -rf "$input_path" ;;
-	'v' | 'V') nvim "$input_path" ;;
-	*) echo 'Selection is invalid!' ;;
-	esac
+  declare -A cmds=(
+    [bat]='bat $input_path'
+    [cat]='cat $input_path'
+    [cd]='cd $input_path'
+    [nvim]='nvim $input_path'
+    [remove]='rm -rf $input_path'
+  )
+
+  local cmd=$(printf "%s\n" "${(@k)cmds}" | fzf)
+  eval "${cmds[$cmd]}" 
 }
 
 __fzf_get_path_using_fd() {
