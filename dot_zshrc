@@ -65,11 +65,12 @@ has() {
 
 # EVALX
 declare -A _EVALX_COMMANDS=( 
-  [clean_flatpak]="flatpak uninstall --unused"
-  [clean_pacman]="sudo pacman -Scc"
-  [source_Hyde_completion]="source Hyde.zsh"
-  [source_chezmoi_completion]="source <(chezmoi completion zsh)"
-  [source_warp_cli_completion]="source <(warp-cli generate-completions zsh)"
+  [clean_flatpak]='flatpak uninstall --unused'
+  [clean_pacman]='sudo pacman -Scc'
+  [source_Hyde_completion]='source Hyde.zsh'
+  [source_chezmoi_completion]='source <(chezmoi completion zsh)'
+  [source_warp_cli_completion]='source <(warp-cli generate-completions zsh)'
+  [start_ssh_agent]='eval "$(ssh-agent -s)"'
 )
 
 evalx() {
@@ -306,7 +307,10 @@ get_current_wifi_password() {
 
 get_wifi_password() {
 	local ssid
-	ssid=$(nmcli --colors=no --fields=NAME --terse connection show | fzf)
+  ssid=$(nmcli --colors=no --fields=NAME --terse connection show |
+    fzf --preview='nmcli -s -g 802-11-wireless-security.psk connection show {} || echo "Cannot get password!"'
+      --preview-window='right,70%,border-left'
+    )
 
 	if [[ -z "$ssid" ]]; then
 		echo "No SSID was selected!"
