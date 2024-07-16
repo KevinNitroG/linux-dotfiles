@@ -1,3 +1,14 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [KEVINNITRO LINUX DOTFILES](#kevinnitro-linux-dotfiles)
+  - [UTILS](#utils)
+    - [Rclone mount](#rclone-mount)
+    - [Systemctl](#systemctl)
+    - [Fingerprint](#fingerprint)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # KEVINNITRO LINUX DOTFILES
 
 [![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/KevinNitroG/linux-dotfiles?style=for-the-badge&color=FAB387)](../../commits/main)
@@ -32,3 +43,11 @@
   ```sh
   systemctl reset-failed
   ```
+
+### Fingerprint
+
+> [!NOTE]
+>
+> - Doc from ARCH: https://wiki.archlinux.org/title/fprint
+> - Supported devices: https://fprint.freedesktop.org/supported-devices.html
+> - My device _(Dell Vostro 14 5410)_: `27c6:639c	Goodix MOC Fingerprint Sensor`
