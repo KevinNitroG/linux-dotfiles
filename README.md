@@ -1,14 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [KEVINNITRO LINUX DOTFILES](#kevinnitro-linux-dotfiles)
-  - [UTILS](#utils)
-    - [Rclone mount](#rclone-mount)
-    - [Systemctl](#systemctl)
-    - [Fingerprint](#fingerprint)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # KEVINNITRO LINUX DOTFILES
 
 [![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/KevinNitroG/linux-dotfiles?style=for-the-badge&color=FAB387)](../../commits/main)
@@ -16,7 +5,120 @@
 
 ---
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [😎 PREVIEW](#-preview)
+  - [Terminal](#terminal)
+  - [Neovim](#neovim)
+  - [Get wifi password](#get-wifi-password)
+- [🪴 INSTALL](#-install)
+  - [1️⃣ Add Keys](#-add-keys)
+  - [2️⃣ Install](#-install)
+  - [3️⃣ Install some code stuff via `Mason` manually](#-install-some-code-stuff-via-mason-manually)
+    - [DAP](#dap)
+    - [Linter](#linter)
+    - [Formatter](#formatter)
+- [UTILS](#utils)
+  - [Arch installation](#arch-installation)
+  - [Rclone mount](#rclone-mount)
+  - [Systemctl](#systemctl)
+  - [Fingerprint](#fingerprint)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+---
+
+## 😎 PREVIEW
+
+### Terminal
+
+![terminal](assets/images/terminal.png)
+
+### Neovim
+
+![neovim](assets/images/neovim.png)
+
+> [!NOTE]
+>
+> I use [Alexis12119's nvim config](https://github.com/Alexis12119/nvim-config)
+>
+> My [fork config](https://github.com/KevinNitroG/Alexis12119-nvim)
+
+### Get wifi password
+
+| `get_wifi_password`                                       | `get_current_wifi_password`                                               |
+| --------------------------------------------------------- | ------------------------------------------------------------------------- |
+| ![get_wifi_password](assets/images/get-wifi-password.png) | ![get_current_wifi_password](assets/images/get-current-wifi-password.png) |
+
+---
+
+## 🪴 INSTALL
+
+### 1️⃣ Add Keys
+
+- SSH
+  ```sh
+  eval "$(ssh-agent -s)"
+  chmod 700 ~/.ssh/
+  chmod 644 ~/.ssh/id_ed25519.pub
+  chmod 600 ~/.ssh/id_ed25519
+  ```
+  > Also make sure to start ssh agent every time login!
+- GPG
+  ```sh
+  gpg --import public.gpg
+  gpg --import secret.gpg
+  gpg --edit-key KevinNitroG
+  trust
+  5
+  y
+  quit
+  ```
+
+> [!NOTE]
+>
+> In order to encrypt / decrypt chezmoi
+
+### 2️⃣ Install
+
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install.sh)"
+```
+
+### 3️⃣ Install some code stuff via `Mason` manually
+
+#### DAP
+
+- js-debug-adapter
+- codelldb / cpptools
+- debugpy
+
+#### Linter
+
+- ruff
+- actionlint
+- cpplint
+- markdownlint
+
+#### Formatter
+
+- doctoc
+- markdownlint
+- prettier
+- ruff
+- shfmt
+- stylua
+
+---
+
 ## UTILS
+
+### Arch installation
+
+```sh
+setfont ter-132n
+```
 
 ### Rclone mount
 
