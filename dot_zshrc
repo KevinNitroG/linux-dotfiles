@@ -137,6 +137,20 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=alway
 ##########################################
 
 # ALIAS / FUNCTION
+
+# Apps
+apps()
+{
+  if has "pacman"; then
+    pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
+  elif has "apt"; then
+    apt list | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt install
+  elif has "dns"; then
+    dnf list --available | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf install
+  fi
+}
+alias fs='apps' # Just because Scoop: Find Scoop
+
 # Ls
 if has eza; then
   EZA_OPTS=(--group-directories-first -s Name -I '.DS_Store' --icons=auto --colour=always)
@@ -177,7 +191,7 @@ tks() {
 }
 alias t='tmux'
 alias ta='tmux attach'
-alias tkss='tmux kill-server'
+alias tksv='tmux kill-server'
 
 # ChatGPT gen it for me :(
 yzcd() {
@@ -193,6 +207,7 @@ bindkey -s '^d' 'yzcd\n'
 
 # Others
 alias rl='source ~/.zshrc'
+bindkey -s '^[R' 'rl\n'
 alias v='nvim'
 alias lg='lazygit'
 alias yz='yazi'
@@ -206,14 +221,10 @@ alias cls='clear'
 
 __fzf_open_path() {
 	local input_path=$1
+  local echo_out=$2
 
 	if [ ! -n "$input_path" ]; then
-		echo 'No choice'
 		return 1
-	fi
-
-	if [[ "$input_path" =~ ^[^:]*:[^:]*:[^:]*:.*$ ]]; then
-		input_path="${input_path%%:*}"
 	fi
 
   declare -A cmds=(
@@ -222,10 +233,15 @@ __fzf_open_path() {
     [cd]='cd $input_path'
     [nvim]='nvim $input_path'
     [remove]='rm -rf $input_path'
+    [echo]='echo $input_path'
   )
 
   local cmd=$(printf "%s\n" "${(@k)cmds}" | fzf)
   eval "${cmds[$cmd]}" 
+
+  if [[ "$echo_out" == true ]]; then
+    echo "$input_path"
+  fi
 }
 
 __fzf_get_path_using_fd() {
@@ -236,7 +252,7 @@ __fzf_get_path_using_fd() {
 				--bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ Files ]] &&
         echo "change-prompt(Files> )+reload(fd --type file)" ||
         echo "change-prompt(Directories> )+reload(fd --type directory)"' \
-				--preview '[[ $FZF_PROMPT =~ Files ]] && bat --color=always {} || tree -C {}'
+				--preview '[[ $FZF_PROMPT =~ Files ]] && bat --color=always --style=plain {} || tree -C {}'
 	)
 	echo "$input_path"
 }
@@ -247,6 +263,7 @@ __fzf_get_path_using_rg() {
 	local INITIAL_QUERY="${*:-}"
 	local input_path=$(
 		fzf --ansi --disabled --query "$INITIAL_QUERY" \
+      --bind "enter:become(echo {1})" \
 			--bind "start:reload:$RG_PREFIX {q}" \
 			--bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
 			--bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
@@ -256,8 +273,8 @@ __fzf_get_path_using_rg() {
 			--prompt '1. ripgrep> ' \
 			--delimiter : \
 			--header 'CTRL-S: Switch between ripgrep/fzf' \
-			--preview 'bat --color=always {1} --highlight-line {2}' \
-			--preview-window 'up,60%,border-bottom,+{2}+3/3,~3'
+			--preview 'bat --color=always {1} --highlight-line {2} --style=plain' \
+			--preview-window 'up,60%,border-bottom,+{2}+3/3'
 	)
 	echo "$input_path"
 }
@@ -270,8 +287,36 @@ rgg() {
 	__fzf_open_path "$(__fzf_get_path_using_rg)"
 }
 
-bindkey -s '^g' 'rgg\n'
-bindkey -s '^f' 'fdg\n'
+bindkey -s '^G' 'rgg\n'
+bindkey -s '^F' 'fdg\n'
+
+
+# NOTE: this is for ... inplace but nah. This is trash
+
+# fdg() {
+#   local output=$(__fzf_open_path "$(__fzf_get_path_using_fd)" 'true')
+#   if [[ -n "$LBUFFER" ]]; then
+#     LBUFFER+="${output}"
+#   fi
+#   local ret=$?
+#   zle reset-prompt
+#   return $ret
+# }
+# zle -N fdg
+#
+# rgg() {
+#   local output=$(__fzf_open_path "$(__fzf_get_path_using_rg)" 'true')
+#   if [[ -n "$LBUFFER" ]]; then
+#     LBUFFER+="${output}"
+#   fi
+#   local ret=$?
+#   zle reset-prompt
+#   return $ret
+# }
+# zle -N rgg
+#
+# bindkey '^F' fdg
+# bindkey '^G' rgg
 
 
 ##########################################
