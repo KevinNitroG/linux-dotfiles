@@ -4,7 +4,6 @@ MenuBar=Disabled
 update_info=dolphin_detailsmodesettings.upd:rename-leading-padding
 
 [General]
-EditableUrl=true
 RememberOpenedTabs=false
 ShowSelectionToggle=false
 Version=202
