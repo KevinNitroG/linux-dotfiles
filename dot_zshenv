@@ -42,8 +42,16 @@ export BROWSER='google-chrome-stable'
 
 # https://github.com/catppuccin/fzf - not use background for transparent
 export FZF_DEFAULT_OPTS="
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
+--color=fg+:#cdd6f4
+--color=fg:#cdd6f4
+--color=header:#f38ba8
+--color=hl+:#eba0ac
+--color=hl:#f38ba8
+--color=info:#89b4fa
+--color=marker:#f9e2af
+--color=pointer:#eba0ac
+--color=prompt:#cba6f7
+--color=spinner:#f5e0dc
 --layout=reverse
 --cycle
 --scroll-off=5
