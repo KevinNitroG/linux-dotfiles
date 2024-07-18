@@ -1,17 +1,25 @@
 prSections:
-  - title: My Pull Requests
+  - title: All
+    filters: author:@me
+  - title: All open
     filters: is:open author:@me
+  - title: Commented
+    filters: commenter:@me
+  - title: Involved
+    filters: is:open involves:@me -author:@me
   - title: Needs My Review
     filters: is:open review-requested:@me
+issuesSections:
+  - title: All
+    filters: author:@me
+  - title: All open
+    filters: is:open author:@me
+  - title: Commented
+    filters: is:open commenter:@me
   - title: Involved
     filters: is:open involves:@me -author:@me
-issuesSections:
-  - title: My Issues
-    filters: is:open author:@me
   - title: Assigned
     filters: is:open assignee:@me
-  - title: Involved
-    filters: is:open involves:@me -author:@me
 defaults:
   preview:
     open: true
@@ -47,26 +55,43 @@ defaults:
         hidden: false
   refetchIntervalMinutes: 30
 keybindings:
-  issues: []
-  prs: []
-repoPaths: {}
+  issues:
+    - key: P
+      command: gh issue pin {{.IssueNumber}} --repo {{.RepoName}}
+  prs:
+    - key: O
+      builtin: checkout
+    - key: c
+      command: >
+        tmux new-window -c {{.RepoPath}} '
+          gh pr checkout {{.PrNumber}} &&
+          nvim -c ":DiffviewOpen master...{{.HeadRefName}}"
+        '
+    - key: v
+      command: >
+        cd {{.RepoPath}} &&
+        code . &&
+        gh pr checkout {{.PrNumber}}
+repoPaths:
+  "*": ~/gits/gh-dash-pr/*
 theme:
   ui:
+    sectionsShowCount: true
     table:
       showSeparator: true
-colors:
-  text:
-    primary: "#CDD6F4"
-    secondary: "#A6ADC8"
-    inverted: "#313244"
-    faint: "#45475A"
-    warning: "#F38BA8"
-    success: "#A6E3A1"
-  background:
-    selected: "#9399B2"
-  border:
-    primary: "#B4BEFE"
-    secondary: "#89B4FA"
-    faint: "#94E2D5"
+  colors:
+    text:
+      primary: "#cdd6f4"
+      secondary: "#f9e2af"
+      inverted: "#11111b"
+      faint: "#bac2de"
+      warning: "#f38ba8"
+      success: "#a6e3a1"
+    background:
+      selected: "#313244"
+    border:
+      primary: "#f9e2af"
+      secondary: "#45475a"
+      faint: "#313244"
 pager:
   diff: "delta" # delta | less
