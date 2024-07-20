@@ -184,7 +184,7 @@ setfont ter-132n
 - https://github.com/linkarzu/dotfiles-latest
 - https://github.com/mischavandenburg/dotfiles
 - https://github.com/nguyenvukhang/docker-dev
-- https://github.com/nguyenvukhang/dots
+- https://github.com/nguyenvukhang/dots (git config!)
 - https://github.com/omerxx/dotfiles (have good tmux plugins)
 - https://github.com/p3nguin-kun/dotfiles
 - https://github.com/petobens/dotfiles (X config, tmux for linux & mac)

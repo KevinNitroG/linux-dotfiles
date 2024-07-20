@@ -13,6 +13,7 @@
 # - https://github.com/craftzdog/dotfiles-public
 # - https://github.com/JoosepAlviste/dotfiles
 # - https://github.com/petobens/dotfiles
+# - https://github.com/asilvadesigns/config
 
 
 ##########################################
@@ -109,18 +110,22 @@ bindkey '^H' backward-kill-word # Source: https://www.reddit.com/r/neovim/commen
 ##########################################
 
 # ZSH CONFIG
-HISTSIZE=5000
-HISTFILE=~/.zsh_history
-SAVEHIST=$HISTSIZE
 HISTDUP=erase
+HISTFILE=~/.zsh_history
 HISTORY_SUBSTRING_SEARCH_PREFIXED=1
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
-setopt hist_find_no_dups
+HISTSIZE=5000
+SAVEHIST=$HISTSIZE
+setopt APPENDHISTORY
+setopt GLOBDOTS # Include hidden dir tab complete
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt IGNOREEOF # Prevents <C-d> from quitting the shell
+setopt PROMPT_SUBST # Enable scripting in the prompt
+setopt SHAREHISTORY # Share history across shell
+unsetopt BEEP # Prevents beeps in general
 
 
 ##########################################
@@ -131,8 +136,10 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' menu no
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*:git-checkout:*' sort false
-# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:complete:cd:*' popup-pad 30 0
+zstyle ':fzf-tab:*' popup-min-size 120 10
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=always $realpath'
 
@@ -241,6 +248,15 @@ alias yz='yazi'
 alias c='clear'
 alias cls='clear'
 alias ccccccc='clear'
+
+
+##########################################
+
+# TMUX CONFIG
+
+if [ -n "$TMUX" ]; then
+   enable-fzf-tab
+fi
 
 
 ##########################################

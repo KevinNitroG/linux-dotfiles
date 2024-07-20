@@ -1,4 +1,5 @@
 # Ref: https://github.com/petobens/dotfiles/blob/master/arch/config/zathura/zathurarc
+# Ref: https://github.com/nguyenvukhang/dots/blob/main/%40/zathura/zathurarc
 
 # Options
 set font "Noto Sans Mono 10"
@@ -49,7 +50,7 @@ map [presentation] i toggle_index
 map [presentation] r recolor
 
 # Index mode
-map [index] q toggle_index
+map [index] i toggle_index
 map [index] n navigate_index down
 map [index] <C-n> navigate_index down
 map [index] p navigate_index up
@@ -58,5 +59,8 @@ map [index] zo navigate_index expand
 map [index] zc navigate_index collapse
 map [index] zm navigate_index collapse-all
 map [index] zr navigate_index expand-all
+
+map [ jumplist backward
+map ] jumplist forward
 
 include catppuccin-mocha
