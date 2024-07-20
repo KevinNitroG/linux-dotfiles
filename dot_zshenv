@@ -44,18 +44,19 @@ export BROWSER='google-chrome-stable'
 export FZF_DEFAULT_OPTS="
 --color=fg+:#cdd6f4
 --color=fg:#cdd6f4
---color=header:#f38ba8
---color=hl+:#eba0ac
---color=hl:#f38ba8
+--color=header:#cba6f7
+--color=hl+:#f5c2e7
+--color=hl:#cba6f7
 --color=info:#89b4fa
---color=marker:#f9e2af
+--color=marker:#89b4fa
 --color=pointer:#eba0ac
---color=prompt:#cba6f7
+--color=prompt:#eba0ac
 --color=spinner:#f5e0dc
+--color=border:#f9e2af
 --layout=reverse
 --cycle
---scroll-off=5
 --border
+--height=~100%
 --preview-window=right,60%,border-left
 --bind ctrl-u:preview-half-page-up
 --bind ctrl-d:preview-half-page-down
