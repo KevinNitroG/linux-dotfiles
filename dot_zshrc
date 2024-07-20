@@ -12,12 +12,13 @@
 # - https://github.com/siduck/dotfiles
 # - https://github.com/craftzdog/dotfiles-public
 # - https://github.com/JoosepAlviste/dotfiles
+# - https://github.com/petobens/dotfiles
 
 
 ##########################################
 
 # UPDATE PATH
-typeset -aU path # Avoid recusrively lengthen $path in subshell
+typeset -aU path # Avoid recursively lengthen $path in subshell
 export path=(
   $HOME/.local/share/nvim/mason/bin
   $HOME/.scripts
@@ -36,6 +37,7 @@ export path=(
 # LIST OF PLUGINS TO USE IN OH-MY-ZSH
 plugins=(
   git
+  gh
   sudo
   zsh-256color
   zsh-autosuggestions
@@ -67,6 +69,7 @@ has() {
 declare -A _EVALX_COMMANDS=( 
   [clean_flatpak]='flatpak uninstall --unused'
   [clean_pacman]='sudo pacman -Scc'
+  [echo_key_press]='echo $(read -k 1)'
   [source_Hyde_completion]='source Hyde.zsh'
   [source_chezmoi_completion]='source <(chezmoi completion zsh)'
   [source_warp_cli_completion]='source <(warp-cli generate-completions zsh)'
@@ -186,12 +189,21 @@ alias cm='chezmoi'
 alias cma='chezmoi add'
 
 # Tmux
-tks() { 
-  tmux kill-session -t $1
-}
 alias t='tmux'
-alias ta='tmux attach'
-alias tksv='tmux kill-server'
+tks() { 
+  if [ "$#" != "0" ]; then
+    tmux kill-session -t $@
+  else
+    tmux kill-server
+  fi
+}
+ta() { 
+  if [ "$#" != "0" ]; then
+    tmux attach -t $@
+  else
+    tmux has-session &>/dev/null && tmux attach || tmux
+  fi
+}
 
 # ChatGPT gen it for me :(
 yzcd() {
@@ -213,38 +225,31 @@ alias lg='lazygit'
 alias yz='yazi'
 alias c='clear'
 alias cls='clear'
+alias ccccccc='clear'
 
 
 ##########################################
 
 # FZF CONFIG
 
-__fzf_open_path() {
+_fzf_open_path() {
 	local input_path=$1
-  local echo_out=$2
-
 	if [ ! -n "$input_path" ]; then
 		return 1
 	fi
-
   declare -A cmds=(
     [bat]='bat $input_path'
     [cat]='cat $input_path'
-    [cd]='cd $input_path'
+    [cd]='[[ -f "$input_path" ]] && input_path=$(dirname "$input_path"); cd $input_path'
     [nvim]='nvim $input_path'
     [remove]='rm -rf $input_path'
     [echo]='echo $input_path'
   )
-
-  local cmd=$(printf "%s\n" "${(@k)cmds}" | fzf)
+  local cmd=$(printf "%s\n" "${(@k)cmds}" | fzf --prompt 'Select command> ')
   eval "${cmds[$cmd]}" 
-
-  if [[ "$echo_out" == true ]]; then
-    echo "$input_path"
-  fi
 }
 
-__fzf_get_path_using_fd() {
+_fzf_get_path_using_fd() {
 	local input_path=$(
 		fd --type file |
 			fzf --prompt 'Files> ' \
@@ -257,7 +262,7 @@ __fzf_get_path_using_fd() {
 	echo "$input_path"
 }
 
-__fzf_get_path_using_rg() {
+_fzf_get_path_using_rg() {
 	rm -f /tmp/rg-fzf-{r,f}
 	local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
 	local INITIAL_QUERY="${*:-}"
@@ -280,11 +285,11 @@ __fzf_get_path_using_rg() {
 }
 
 fdg() {
-	__fzf_open_path "$(__fzf_get_path_using_fd)"
+  _fzf_open_path "$(_fzf_get_path_using_fd)"
 }
 
 rgg() {
-	__fzf_open_path "$(__fzf_get_path_using_rg)"
+  _fzf_open_path "$(_fzf_get_path_using_rg)"
 }
 
 bindkey -s '^G' 'rgg\n'

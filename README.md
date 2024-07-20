@@ -187,7 +187,7 @@ setfont ter-132n
 - https://github.com/nguyenvukhang/dots
 - https://github.com/omerxx/dotfiles
 - https://github.com/p3nguin-kun/dotfiles
-- https://github.com/petobens/dotfiles
+- https://github.com/petobens/dotfiles (X config, tmux for linux & mac)
 - https://github.com/rusty-electron/dotfiles
 - https://github.com/siduck/dotfiles
 - https://github.com/stevearc/dotfiles
