@@ -144,13 +144,28 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=alway
 # Apps
 apps()
 {
-  if has "pacman"; then
-    pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
-  elif has "apt"; then
-    apt list | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt install
-  elif has "dns"; then
-    dnf list --available | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf install
-  fi
+  local distro
+  distro=$(lsb_release -i | awk '{print $NF}')
+
+  case "$distro" in
+    "Arch")
+      if has yay; then
+        yay -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro yay -S
+      else
+        pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
+      fi
+      ;;
+    "Ubuntu"|"Debian")
+      apt list | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt install
+      ;;
+    "Fedora"|"CentOS"|"RedHat")
+      dnf list --available | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf install
+      ;;
+    *)
+      echo "Unsupported distribution: $distro"
+      return 1
+      ;;
+  esac
 }
 alias fs='apps' # Just because Scoop: Find Scoop
 
