@@ -45,14 +45,14 @@ export FZF_DEFAULT_OPTS="
 --color=fg+:#cdd6f4
 --color=fg:#cdd6f4
 --color=header:#cba6f7
---color=hl+:#f5c2e7
---color=hl:#cba6f7
+--color=hl+:#eba0ac
+--color=hl:#f38ba8
 --color=info:#89b4fa
 --color=marker:#89b4fa
 --color=pointer:#eba0ac
 --color=prompt:#eba0ac
 --color=spinner:#f5e0dc
---color=border:#f9e2af
+--color=border:#b4befe
 --layout=reverse
 --cycle
 --border
