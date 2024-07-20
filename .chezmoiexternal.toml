@@ -48,3 +48,8 @@ refreshPeriod = "168h"
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/glamour/main/themes/catppuccin-mocha.json"
 refreshPeriod = "168h"
+
+[".config/zathura/catppuccin-mocha"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha"
+refreshPeriod = "168h"
