@@ -24,6 +24,9 @@
   - [Rclone mount](#rclone-mount)
   - [Systemctl](#systemctl)
   - [Fingerprint](#fingerprint)
+  - [Other dotfiles](#other-dotfiles)
+    - [Preconfig](#preconfig)
+    - [Others](#others)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -153,3 +156,38 @@ setfont ter-132n
 > - Doc from ARCH: https://wiki.archlinux.org/title/fprint
 > - Supported devices: https://fprint.freedesktop.org/supported-devices.html
 > - My device _(Dell Vostro 14 5410)_: `27c6:639c	Goodix MOC Fingerprint Sensor`
+
+### Other dotfiles
+
+#### Preconfig
+
+- https://github.com/JaKooLit/Hyprland-Dots
+- https://github.com/end-4/dots-hyprland
+- https://github.com/gh0stzk/dotfiles
+- https://github.com/prasanthrangan/hyprdots
+- https://gitlab.com/stephan-raabe/dotfiles
+
+#### Others
+
+- https://github.com/2KAbhishek/dots2k
+- https://github.com/2nthony/dotfiles (Lazygit?)
+- https://github.com/Alexis12119/dotfiles
+- https://github.com/Cybersnake223/Hypr
+- https://github.com/Integralist/dotfiles
+- https://github.com/JoosepAlviste/dotfiles
+- https://github.com/asilvadesigns/config
+- https://github.com/bahamas10/dotfiles (YSAP)
+- https://github.com/chaneyzorn/dotfiles
+- https://github.com/craftzdog/dotfiles-public
+- https://github.com/dlvhdr/dotfiles
+- https://github.com/dreamsofautonomy/zensh
+- https://github.com/linkarzu/dotfiles-latest
+- https://github.com/mischavandenburg/dotfiles
+- https://github.com/nguyenvukhang/docker-dev
+- https://github.com/nguyenvukhang/dots
+- https://github.com/omerxx/dotfiles
+- https://github.com/p3nguin-kun/dotfiles
+- https://github.com/petobens/dotfiles
+- https://github.com/rusty-electron/dotfiles
+- https://github.com/siduck/dotfiles
+- https://github.com/stevearc/dotfiles
