@@ -42,6 +42,7 @@ vi_mode_style = {shape = "Block", blinking = "Off"}
 
 [mouse]
 bindings = [ { mouse = "Right", mods = "Control", action = "Paste" } ]
+hide_when_typing = true
 
 [terminal]
 osc52 = "CopyPaste"
