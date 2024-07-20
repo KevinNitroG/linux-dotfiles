@@ -3,7 +3,7 @@
 live_config_reload = true
 
 import = [
-    "~/.config/alacritty/themes/cattpuccin/catppuccin-mocha.toml"
+    "~/.config/alacritty/themes/catppuccin/catppuccin-mocha.toml"
 ]
 
 [env]
