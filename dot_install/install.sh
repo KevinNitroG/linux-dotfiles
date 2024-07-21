@@ -39,7 +39,7 @@ esac
 
 case "$DISTRO" in
 "Arch")
-  bash -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)"
+  bash <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)"
   ;;
 *)
   echo 'Unsupport distro!'
