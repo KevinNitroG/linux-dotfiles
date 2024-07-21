@@ -24,6 +24,7 @@
   - [Rclone mount](#rclone-mount)
   - [Systemctl](#systemctl)
   - [Fingerprint](#fingerprint)
+  - [Tmux](#tmux)
   - [Other dotfiles](#other-dotfiles)
     - [Preconfig](#preconfig)
     - [Others](#others)
@@ -157,13 +158,21 @@ setfont ter-132n
 > - Supported devices: https://fprint.freedesktop.org/supported-devices.html
 > - My device _(Dell Vostro 14 5410)_: `27c6:639c	Goodix MOC Fingerprint Sensor`
 
+### Tmux
+
+- attach starting directory to current session ([Source](https://stackoverflow.com/a/54444853/23173098))
+  ```tmux
+  attach-session -t . -c /path/to/new/directory
+  ```
+
 ### Other dotfiles
 
 #### Preconfig
 
 - https://github.com/JaKooLit/Hyprland-Dots
 - https://github.com/end-4/dots-hyprland
-- https://github.com/gh0stzk/dotfiles
+- https://github.com/gh0stzk/dotfiles (BSPWM)
+- https://github.com/koeqaife/hyprland-material-you
 - https://github.com/prasanthrangan/hyprdots
 - https://gitlab.com/stephan-raabe/dotfiles
 
