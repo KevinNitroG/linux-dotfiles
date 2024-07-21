@@ -21,14 +21,14 @@ has() {
 
 ##########################################
 
-read -p 'MAKE SURE YOU RUN THIS SCRIPT IN USER PRIVILEDGE? (y/N) ' user_input
+read -p 'MAKE SURE YOU RUN THIS SCRIPT IN USER PRIVILEDGE? (y/N): ' user_input
 
 case $user_input in
 [yY]) ;;
 *) exit 1 ;;
 esac
 
-read -p 'MAKE SURE YOU HAVE IMPORTED SSH, GPG KEY? (Y/n) ' user_input
+read -p 'MAKE SURE YOU HAVE IMPORTED SSH, GPG KEY? (Y/n): ' user_input
 
 case $user_input in
 [nN]) ;;
@@ -37,9 +37,9 @@ esac
 
 ##########################################
 
-case "$distro" in
+case "$DISTRO" in
 "Arch")
-  bash -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/laptop_stuff.sh)"
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)"
   ;;
 *)
   echo 'Unsupport distro!'
@@ -83,7 +83,7 @@ fi
 
 ##########################################
 
-read -p 'INSTALL OTHER PACKAGES?' user_input
+read -p 'INSTALL OTHER PACKAGES? [Y/n]: ' user_input
 
 case $user_input in
 [yY])

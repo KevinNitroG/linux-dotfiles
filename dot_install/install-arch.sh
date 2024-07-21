@@ -125,7 +125,7 @@ echo 'INSTALLING OHMYZSH...'
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # INSTALL LAPTOP STUFF
-read -p 'INSTALL LAPTOP STUFF?' user_input
+read -p 'INSTALL LAPTOP STUFF? [y/N]: ' user_input
 
 case $user_input in
 [yY])
@@ -135,7 +135,7 @@ case $user_input in
 esac
 
 # INSTALL HYPRDOTS
-read -p 'INSTALL HYPRDOTS? (Y/n) ' user_input
+read -p 'INSTALL HYPRDOTS? [Y/n]: ' user_input
 
 case $user_input in
 [nN]) ;;
