@@ -54,21 +54,22 @@ export FZF_DEFAULT_OPTS="
 --color prompt:#eba0ac
 --color spinner:#f5e0dc
 --color border:#b4befe
---layout reverse
---cycle
 --border
+--cycle
 --height ~100%
+--layout reverse
 --preview-window right,60%,border-left
---bind tab:up
+--bind alt-w:toggle-preview-wrap
 --bind btab:down
---bind ctrl-u:preview-half-page-up
---bind ctrl-d:preview-half-page-down
---bind ctrl-f:preview-page-down
 --bind ctrl-b:preview-page-up
+--bind ctrl-d:preview-half-page-down
+--bind ctrl-e:toggle-preview
+--bind ctrl-f:preview-page-down
 --bind ctrl-g:preview-top
 --bind ctrl-h:preview-bottom
---bind alt-w:toggle-preview-wrap
---bind ctrl-e:toggle-preview
+--bind ctrl-u:preview-half-page-up
+--bind one:accept
+--bind tab:up
 "
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --ignore-file $HOME/ripgrep/ignore"
 
