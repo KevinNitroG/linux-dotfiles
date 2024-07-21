@@ -67,8 +67,8 @@ export FZF_DEFAULT_OPTS="
 --bind ctrl-g:preview-top
 --bind ctrl-h:preview-bottom
 --bind ctrl-u:preview-half-page-up
---bind one:accept
 "
+# --bind one:accept # For accept if there's only 1
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --ignore-file $HOME/ripgrep/ignore"
 
 
