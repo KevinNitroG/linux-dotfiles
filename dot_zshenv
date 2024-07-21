@@ -32,7 +32,8 @@ export TERM='xterm-256color' # Not to put it in .zprofile bcs of tmux mess up wi
 export EDITOR='nvim'
 # export VISUAL='code --wait'
 export VISUAL="$EDITOR"
-export PAGER='bat' # 'less', 'more', 'bat', 'delta'
+export PAGER='bat' # 'less', 'more', 'bat', no 'delta'!
+export GIT_PAGER='delta' # 'less', 'more', 'bat', 'delta'
 export BROWSER='google-chrome-stable'
 
 
@@ -70,3 +71,11 @@ export FZF_DEFAULT_OPTS="
 --bind ctrl-e:toggle-preview
 "
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --ignore-file $HOME/ripgrep/ignore"
+
+
+##########################################
+
+# BAT
+
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT='-c'

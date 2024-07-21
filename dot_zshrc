@@ -252,7 +252,7 @@ alias ccccccc='clear'
 
 ##########################################
 
-# TMUX CONFIG
+# TMUX
 
 if [ -n "$TMUX" ]; then
    enable-fzf-tab
@@ -261,7 +261,7 @@ fi
 
 ##########################################
 
-# FZF CONFIG
+# FZF
 
 _fzf_open_path() {
 	local input_path=$1
@@ -353,6 +353,19 @@ bindkey -s '^F' 'fdg\n'
 #
 # bindkey '^F' fdg
 # bindkey '^G' rgg
+
+
+##########################################
+
+# BAT
+
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
 
 
 ##########################################
