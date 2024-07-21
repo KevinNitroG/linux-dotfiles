@@ -43,7 +43,7 @@ export BROWSER='google-chrome-stable'
 
 # https://github.com/catppuccin/fzf - not use background for transparent
 export FZF_DEFAULT_OPTS="
---color fg+:#cdd6f4
+--color fg+:#f9e2af
 --color fg:#cdd6f4
 --color header:#cba6f7
 --color hl+:#eba0ac
@@ -60,7 +60,6 @@ export FZF_DEFAULT_OPTS="
 --layout reverse
 --preview-window right,60%,border-left
 --bind alt-w:toggle-preview-wrap
---bind btab:down
 --bind ctrl-b:preview-page-up
 --bind ctrl-d:preview-half-page-down
 --bind ctrl-e:toggle-preview
@@ -69,7 +68,6 @@ export FZF_DEFAULT_OPTS="
 --bind ctrl-h:preview-bottom
 --bind ctrl-u:preview-half-page-up
 --bind one:accept
---bind tab:up
 "
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --ignore-file $HOME/ripgrep/ignore"
 
