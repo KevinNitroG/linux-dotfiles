@@ -73,6 +73,7 @@ declare -A _EVALX_COMMANDS=(
   [echo_key_press]='echo $(read -k 1)'
   [source_Hyde_completion]='source Hyde.zsh'
   [source_chezmoi_completion]='source <(chezmoi completion zsh)'
+  [source_npm_completion]='source <(npm completion)'
   [source_warp_cli_completion]='source <(warp-cli generate-completions zsh)'
   [start_ssh_agent]='eval "$(ssh-agent -s)"'
 )
@@ -174,7 +175,35 @@ install_apps()
       ;;
   esac
 }
-alias fs='install_apps' # Just because Scoop: Find Scoop
+alias ia='install_apps'
+
+uninstall_apps()
+{
+  local distro
+  distro=$(lsb_release -i | awk '{print $NF}')
+
+  case "$distro" in
+    "Arch")
+      if has yay; then
+        yay -Qq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -Rs --confirm
+      else
+        pacman -Qq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -Rs --confirm
+      fi
+      ;;
+    "Ubuntu"|"Debian")
+      apt list --installed | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt uninstall
+      ;;
+    "Fedora"|"CentOS"|"RedHat")
+      dnf list --installed | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf uninstall
+      ;;
+    *)
+      echo "Unsupported distribution: $distro"
+      return 1
+      ;;
+  esac
+}
+alias ua='uninstall_apps'
+
 
 # Ls
 if has eza; then
