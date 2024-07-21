@@ -86,8 +86,8 @@
 
 ### 2️⃣ Install
 
-```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install.sh)"
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install.sh)"
 ```
 
 ### 3️⃣ Install some code stuff via `Mason` manually
