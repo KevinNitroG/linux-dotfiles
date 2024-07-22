@@ -51,6 +51,7 @@ PACKAGES=(
   'gdb'
   'nodejs'
   'npm'
+  'pnpm'
   'pyenv'
   'python-pip'
   'rustup'

@@ -23,6 +23,7 @@ typeset -aU path # Avoid recursively lengthen $path in subshell
 export path=(
   $HOME/.local/share/nvim/mason/bin
   $HOME/.scripts
+  $PNPM_HOME
   $path
 )
 
@@ -452,3 +453,11 @@ fastfetch
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 eval "$(pyenv init -)"
+
+# pnpm
+export PNPM_HOME="/home/kevinnitro/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
