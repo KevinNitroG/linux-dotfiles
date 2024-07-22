@@ -38,8 +38,8 @@ esac
 ##########################################
 
 case "$DISTRO" in
-"Arch")
-  bash <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)"
+'Arch')
+  bash <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)
   ;;
 *)
   echo 'Unsupport distro!'
@@ -71,6 +71,7 @@ fi
 
 # BAT CACHE THEMES
 if has bat; then
+  echo "BAT CACHE BUILD..."
   bat cache --build
 fi
 
@@ -79,6 +80,11 @@ if has tlp; then
   echo 'CONFIGURING TLP...'
   sudo rm /etc/tlp.conf || true
   sudo ln -s ~/.config/tlp/tlp.conf /etc/tlp.conf
+fi
+
+if has npm; then
+  echo "CONFIG NPM..."
+  mkdir -p ~/.npm-global/
 fi
 
 ##########################################

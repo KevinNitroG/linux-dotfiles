@@ -45,13 +45,13 @@ PACKAGES=(
 
   # Development, languages, interpreters, compilers, etc
   # 'go'
+  # 'pnpm'
   'clang'
   'cmake'
   'docker'
   'gdb'
   'nodejs'
   'npm'
-  'pnpm'
   'pyenv'
   'python-pip'
   'rustup'
