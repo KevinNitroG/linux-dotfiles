@@ -22,8 +22,9 @@
 typeset -aU path # Avoid recursively lengthen $path in subshell
 export path=(
   $HOME/.local/share/nvim/mason/bin
-  $HOME/.scripts
+  $HOME/.npm-global/bin
   $PNPM_HOME
+  $HOME/.scripts
   $path
 )
 
@@ -178,6 +179,34 @@ install_apps()
 }
 alias ia='install_apps'
 
+update_apps()
+{
+  local distro
+  distro=$(lsb_release -i | awk '{print $NF}')
+
+  case "$distro" in
+    "Arch")
+      if has yay; then
+        yay -Qq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S
+      else
+        pacman -Qq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
+      fi
+      ;;
+    "Ubuntu"|"Debian")
+      apt list --installed | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt install
+      ;;
+    "Fedora"|"CentOS"|"RedHat")
+      dnf list --installed | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf install
+      ;;
+    *)
+      echo "Unsupported distribution: $distro"
+      return 1
+      ;;
+  esac
+}
+alias ua='update_apps'
+
+
 uninstall_apps()
 {
   local distro
@@ -203,7 +232,7 @@ uninstall_apps()
       ;;
   esac
 }
-alias ua='uninstall_apps'
+alias uaa='uninstall_apps'
 
 
 # Ls
