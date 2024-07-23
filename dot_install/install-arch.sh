@@ -102,6 +102,7 @@ PACKAGES=(
 )
 
 PACKAGES_LAPTOP=(
+  # 'gestures'
   # 'libinput-gestures'
   'tlp'
   'tlpui'
