@@ -48,6 +48,7 @@ PACKAGES=(
   # 'pnpm'
   'clang'
   'cmake'
+  'create-react-app'
   'docker'
   'gdb'
   'nodejs'
