@@ -1,17 +1,22 @@
 #!/bin/bash
 
+WALLPAPER_PATH="$HOME/assets/images/wallpaper/arch-catppuccin-FHD.png"
+IS_PNG=$([[ "${WALLPAPER_PATH##*.}" -eq 'png' ]])
 CACHE_DIR=${XDG_CACHE_HOME:-~/.cache}
 
 sudo cp -rf "$HOME/.config/sddm/themes/catppuccin-mocha" "$CACHE_DIR/catppuccin-mocha"
 
 sudo sed -i 's/CustomBackground="false"/CustomBackground="true"/' "$CACHE_DIR/catppuccin-mocha/theme.conf"
-# sudo sed -i 's/Background="backgrounds\/wall.jpg"/Background="backgrounds\/wall.png"/' "$CACHE_DIR/catppuccin-mocha/theme.conf"
 
-sudo cp "$HOME/assets/images/wallpaper/ArchMochaLavender(Base).jpg" "$HOME/.config/sddm/themes/catppuccin-mocha/backgrounds/wall.jpg"
+if [[ "${WALLPAPER_PATH##*.}" -eq 'png' ]]; then
+  sudo sed -i 's/Background="backgrounds\/wall.jpg"/Background="backgrounds\/wall.png"/' "$CACHE_DIR/catppuccin-mocha/theme.conf"
+fi
+
+sudo cp "$WALLPAPER_PATH" "$CACHE_DIR/catppuccin-mocha/backgrounds/wall.png"
 
 sudo rm '/usr/share/sddm/themes/catppuccin-mocha/' -rf || true
-# sudo ln -s "$HOME/.config/sddm/themes/catppuccin-mocha" '/usr/share/sddm/themes/catppuccin-mocha'
-sudo cp -rf "$CACHE_DIR/catppuccin-mocha" '/usr/share/sddm/themes/catppuccin-mocha'
+# sudo ln -s "$HOME/.config/sddm/themes/catppuccin-mocha" '/usr/share/sddm/themes/catppuccin-mocha' # Cannot symlink
+sudo cp -rf "$CACHE_DIR/catppuccin-mocha" '/usr/share/sddm/themes/'
 
 sudo rm "$CACHE_DIR/catppuccin-mocha/" -rf
 
