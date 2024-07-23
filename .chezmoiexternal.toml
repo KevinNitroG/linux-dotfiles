@@ -3,7 +3,6 @@ type = "git-repo"
 url = "https://github.com/HoangTran0410/useful-script.git"
 refreshPeriod = "168h"
 
-
 [".gits/bypass-paywalls-chrome"]
 type = "git-repo"
 url = "https://github.com/iamadamdev/bypass-paywalls-chrome.git"
@@ -56,6 +55,6 @@ refreshPeriod = "168h"
 
 [".config/sddm/themes/"]
 type = "archive"
-url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip"
+url = "https://github.com/catppuccin/sddm/releases/latest/download/catppuccin-mocha.zip"
 include = ["**/*"]
 refreshPeriod = "168h"
