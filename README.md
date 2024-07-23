@@ -25,6 +25,7 @@
   - [Systemctl](#systemctl)
   - [Fingerprint](#fingerprint)
   - [Tmux](#tmux)
+  - [Wallpaper](#wallpaper)
   - [Other dotfiles](#other-dotfiles)
     - [Preconfig](#preconfig)
     - [Others](#others)
@@ -164,6 +165,12 @@ setfont ter-132n
   ```tmux
   attach-session -t . -c /path/to/new/directory
   ```
+
+### Wallpaper
+
+- https://github.com/D3Ext/aesthetic-wallpapers
+- https://github.com/DenverCoder1/minimalistic-wallpaper-collection
+- https://github.com/Gingeh/wallpapers
 
 ### Other dotfiles
 
