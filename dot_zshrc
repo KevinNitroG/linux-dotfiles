@@ -302,6 +302,7 @@ bindkey -s '^d' 'yzcd\n'
 alias rl='source ~/.zshrc'
 bindkey -s '^[R' 'rl\n'
 alias v='nvim'
+alias sv="sudo -E nvim $@"
 alias lg='lazygit'
 alias yz='yazi'
 alias c='clear'
