@@ -53,3 +53,9 @@ refreshPeriod = "168h"
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha"
 refreshPeriod = "168h"
+
+[".config/sddm/themes/"]
+type = "archive"
+url = "https://github.com/catppuccin/sddm/releases/download/v1.0.0/catppuccin-mocha.zip"
+include = ["**/*"]
+refreshPeriod = "168h"
