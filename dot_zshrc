@@ -152,88 +152,11 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=alway
 # ALIAS / FUNCTION
 
 # Apps
-install_apps()
-{
-  local distro
-  distro=$(lsb_release -i | awk '{print $NF}')
-
-  case "$distro" in
-    "Arch")
-      if has yay; then
-        yay -Slq | sort -u | fzf --multi --preview 'yay -Sii {1}' | xargs -ro yay -S --needed
-      else
-        pacman -Slq | fzf --multi --preview 'pacman -Sii {1}' | xargs -ro sudo pacman -S --needed
-      fi
-      ;;
-    "Ubuntu"|"Debian")
-      apt list | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt install
-      ;;
-    "Fedora"|"CentOS"|"RedHat")
-      dnf list --available | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf install
-      ;;
-    *)
-      echo "Unsupported distribution: $distro"
-      return 1
-      ;;
-  esac
-}
-alias ia='install_apps'
-
-update_apps()
-{
-  local distro
-  distro=$(lsb_release -i | awk '{print $NF}')
-
-  case "$distro" in
-    "Arch")
-      if has yay; then
-        yay -Qq | fzf --multi --preview 'yay -Sii {1}' | xargs -ro yay -S --needed
-      else
-        pacman -Qq | fzf --multi --preview 'pacman -Sii {1}' | xargs -ro sudo pacman -S --needed
-      fi
-      ;;
-    "Ubuntu"|"Debian")
-      apt list --installed | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt install
-      ;;
-    "Fedora"|"CentOS"|"RedHat")
-      dnf list --installed | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf install
-      ;;
-    *)
-      echo "Unsupported distribution: $distro"
-      return 1
-      ;;
-  esac
-}
-alias ua='update_apps'
-
-
-uninstall_apps()
-{
-  local distro
-  distro=$(lsb_release -i | awk '{print $NF}')
-
-  case "$distro" in
-    "Arch")
-      if has yay; then
-        yay -Qq | fzf --multi --preview 'yay -Sii {1}' | xargs -ro yay -Rs --confirm
-      else
-        pacman -Qq | fzf --multi --preview 'pacman -Sii {1}' | xargs -ro sudo pacman -Rs --confirm
-      fi
-      ;;
-    "Ubuntu"|"Debian")
-      apt list --installed | fzf --multi --preview 'apt info {1}' | xargs -ro sudo apt uninstall
-      ;;
-    "Fedora"|"CentOS"|"RedHat")
-      dnf list --installed | fzf --multi --preview 'dnf info {1}' | xargs -ro sudo dnf uninstall
-      ;;
-    *)
-      echo "Unsupported distribution: $distro"
-      return 1
-      ;;
-  esac
-}
-alias uaa='uninstall_apps'
-
+if [[ -e "$HOME/.scripts/manage-apps.sh" ]]; then
+  alias ia='manage-apps.sh -i'
+  alias ua='manage-apps.sh -u'
+  alias uaa='manage-apps.sh -U'
+fi
 
 # Ls
 if has eza; then

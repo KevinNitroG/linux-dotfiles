@@ -42,6 +42,7 @@ export BROWSER='google-chrome-stable'
 # FZF
 
 # https://github.com/catppuccin/fzf - not use background for transparent
+# NOTE: With border left option, it cannot show preview-label
 export FZF_DEFAULT_OPTS="
 --color fg+:#f9e2af
 --color fg:#cdd6f4
@@ -58,7 +59,7 @@ export FZF_DEFAULT_OPTS="
 --cycle
 --height ~100%
 --layout reverse
---preview-window right,60%,border-left
+--preview-window right,60%,border-left,wrap
 --bind alt-w:toggle-preview-wrap
 --bind ctrl-b:preview-page-up
 --bind ctrl-d:preview-half-page-down
