@@ -73,6 +73,7 @@ declare -A _EVALX_COMMANDS=(
   [clean_flatpak]='flatpak uninstall --unused'
   [clean_pacman]='sudo pacman -Scc'
   [echo_key_press]='echo $(read -k 1)'
+  [get_my_ip]='curl http://ifconfig.me/ip && echo'
   [source_Hyde_completion]='source Hyde.zsh'
   [source_chezmoi_completion]='source <(chezmoi completion zsh)'
   [source_npm_completion]='source <(npm completion)'
@@ -191,6 +192,7 @@ cms() {
 }
 alias cm='chezmoi'
 alias cma='chezmoi add'
+alias cme='chezmoi edit'
 
 # Tmux
 alias t='tmux'
@@ -221,11 +223,17 @@ yzcd() {
 }
 bindkey -s '^d' 'yzcd\n'
 
+# Cd
+alias cdc='cd ~/.config/'
+alias cdcm='cd ~/.local/share/chezmoi/'
+alias cdg='cd ~/gits/'
+alias cdnv='cd ~/.config/nvim/'
+
 # Others
 alias rl='source ~/.zshrc'
 bindkey -s '^[R' 'rl\n'
 alias v='nvim'
-alias sv="sudo -E nvim $@"
+alias sv='sudo -E nvim'
 alias lg='lazygit'
 alias yz='yazi'
 alias c='clear'
