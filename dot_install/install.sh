@@ -37,9 +37,10 @@ esac
 
 ##########################################
 
+# NOTE: Use source instead of bash to avoid create subshell
 case "$DISTRO" in
 'Arch')
-  bash <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)
+  source <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)
   ;;
 *)
   echo 'Unsupport distro!'
