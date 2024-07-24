@@ -1,3 +1,5 @@
+# vim: set ft=toml :
+
 {{- $email := promptStringOnce . "email" "Email address" -}}
 
 encryption = "gpg"
@@ -20,3 +22,12 @@ command = "zsh"
 
 [completion]
 custom = true
+
+[diff]
+command = "delta"
+args = ["{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
+pager = "delta"
+
+[merge]
+command = "nvim"
+args = ["-d", "{{ "{{" }} .Destination {{ "}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
