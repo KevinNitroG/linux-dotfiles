@@ -153,10 +153,10 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons=alway
 # ALIAS / FUNCTION
 
 # Apps
-if [[ -e "$HOME/.scripts/manage-apps.sh" ]]; then
-  alias ia='manage-apps.sh -i'
-  alias ua='manage-apps.sh -u'
-  alias uaa='manage-apps.sh -U'
+if [[ -e "$HOME/.scripts/appx.sh" ]]; then
+  alias ia="$HOME/.scripts/appx.sh -i"
+  alias ua="$HOME/.scripts/appx.sh -u -f"
+  alias uaa="$HOME/.scripts/appx.sh -U"
 fi
 
 # Ls
