@@ -124,12 +124,18 @@ setopt GLOBDOTS # Include hidden dir tab complete
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_SPACE # Ignore command start with space
 setopt HIST_SAVE_NO_DUPS
 setopt IGNOREEOF # Prevents <C-d> from quitting the shell
 setopt PROMPT_SUBST # Enable scripting in the prompt
 setopt SHAREHISTORY # Share history across shell
 unsetopt BEEP # Prevents beeps in general
+
+# Ignore command match the regex
+zshaddhistory() {
+  local line=${1%%$'\n'}
+  [[ ! $line =~ "password|secret|private|BBbb" ]]
+}
 
 
 ##########################################
