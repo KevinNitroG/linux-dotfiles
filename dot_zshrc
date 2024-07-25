@@ -229,6 +229,12 @@ alias cdcm='cd ~/.local/share/chezmoi/'
 alias cdg='cd ~/gits/'
 alias cdnv='cd ~/.config/nvim/'
 
+# Copy, move
+if has rsync; then
+  alias rcp='rsync --recursive --times --progress --stats --human-readable'
+  alias rmv='rsync --recursive --times --progress --stats --human-readable --remove-source-files'
+fi
+
 # Others
 alias rl='source ~/.zshrc'
 bindkey -s '^[R' 'rl\n'

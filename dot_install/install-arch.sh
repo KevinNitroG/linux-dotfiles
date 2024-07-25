@@ -32,6 +32,7 @@ PACKAGES=(
   'lazydocker'
   'rclone'
   'ripgrep'
+  'rsync'
   'sd'
   'thefuck'
   'tokei'
