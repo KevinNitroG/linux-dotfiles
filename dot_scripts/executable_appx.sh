@@ -9,7 +9,7 @@ FZF_DEFAULT_OPTS+="
 
 show_help() {
   cat <<EOF
-Description: Install, update, uninstall, and fetch updates for apps.
+Description: Install, update, uninstall apps.
 
 Require: fzf
 Author: Kevin Nitro (KevinNitroG), Claude, Copilot
@@ -113,13 +113,13 @@ _apt_manage() {
   local action=$1
   case "$action" in
   'install')
-    apt list 2>/dev/null | fzf --multi --header 'INSTALL APPS' --preview 'apt show {1}' | cut -d '/' -f1 | xargs -ro sudo apt install
+    apt list | fzf --multi --header 'INSTALL APPS' --preview 'apt show {1}' | xargs -ro sudo apt install
     ;;
   'update')
-    apt list --upgradable 2>/dev/null | fzf --multi --header 'UPDATE APPS' --preview 'apt show {1}' | cut -d '/' -f1 | xargs -ro sudo apt upgrade
+    apt list --upgradable | fzf --multi --header 'UPDATE APPS' --preview 'apt show {1}' | xargs -ro sudo apt upgrade
     ;;
   'uninstall')
-    apt list --installed 2>/dev/null | fzf --multi --header 'UNINSTALL APPS' --preview 'apt show {1}' | cut -d '/' -f1 | xargs -ro sudo apt remove
+    apt list --installed | fzf --multi --header 'UNINSTALL APPS' --preview 'apt show {1}' | xargs -ro sudo apt remove
     ;;
   'fetch')
     sudo apt update
@@ -239,7 +239,7 @@ main() {
         package_manager=$2
         shift 2
       else
-        echo "Error: Package manager not specified after -p or --package-manager" >&2
+        echo 'Error: Package manager not specified after -p or --package-manager' >&2
         exit 1
       fi
       ;;
