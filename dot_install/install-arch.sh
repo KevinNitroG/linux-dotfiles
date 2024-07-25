@@ -69,8 +69,9 @@ PACKAGES=(
   'openssl'
 
   # Monitoring, management and stats
-  'btop'
   # 'speedtest-cli'
+  'btop'
+  'cronie'
 
   # CLI Fun
   'cowsay'
