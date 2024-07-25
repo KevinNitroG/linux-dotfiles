@@ -1,126 +1,281 @@
 #!/bin/bash
 
-_FZF_DEFAULT_OPTS="
+FZF_DEFAULT_OPTS+="
 --bind ctrl-a:toggle-all
 --header-first
+--preview-label INFO
 --preview-window right,70%
 "
 
 show_help() {
   cat <<EOF
-Script name: ${0}
+Description: Install, update, uninstall, and fetch updates for apps.
 
-Description: To install, update, uninstall apps.
 Require: fzf
+Author: Kevin Nitro (KevinNitroG), Claude, Copilot
 
-Author: Kevin Nitro (KevinNitroG)
-
-Usage: ${0} [OPTION]
-
+Usage: ${0} [OPTION]...
 Options:
-  -i, --install      Perform 'install' apps
-  -u, --update       Perform 'update' apps
-  -U, --uninstall    Perform 'uninstall' apps
-  -help, --help      Display this help
+  -i, --install           Install apps
+  -u, --update            Update apps
+  -U, --uninstall         Uninstall apps
+  -f, --fetch             Fetch updates for package repositories (priority)
+  -p, --package-manager   Specify package manager
+                            [pacman|yay|apt|dnf|snap|flatpak]
+  -h, --help              Display this help
 
 Examples:
   ${0} -i
-  ${0} -u
+  ${0} -u -f
   ${0} -U
 EOF
 }
 
-has() {
-  command -v $1 >/dev/null
+_has() {
+  command -v "$1" >/dev/null 2>&1
 }
 
-manage_app() {
-  local action=$1
-  local distro
-  distro=$(lsb_release -i | awk '{print $NF}')
+_get_distro() {
+  if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    echo "$ID"
+  elif [ -f /etc/lsb-release ]; then
+    . /etc/lsb-release
+    echo "$DISTRIB_ID"
+  else
+    echo "Unknown"
+  fi
+}
 
+_get_package_manager() {
+  local distro
+  distro=$(_get_distro)
   case "$distro" in
-  'Arch')
-    if has yay; then
-      case "$action" in
-      'install')
-        yay -Sy
-        yay -Slq | sort -u | fzf --multi --header 'INSTALL APPS' --preview 'yay -Sii {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro yay -S --needed
-        ;;
-      'update')
-        yay -Sy
-        yay -Qq | fzf --multi --header 'UPDATE APPS' --preview 'yay -Sii {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro yay -S --needed
-        ;;
-      'uninstall')
-        yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Sii {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro yay -Rs --confirm
-        ;;
-      esac
+  'arch')
+    if _has yay; then
+      package_manager="yay"
     else
-      case "$action" in
-      'install')
-        sudo pacman -Sy
-        pacman -Slq | fzf --multi --header 'INSTALL APPS' --preview 'pacman -Sii {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo pacman -S --needed
-        ;;
-      'update')
-        sudo pacman -Sy
-        pacman -Qq | fzf --multi --header 'UPDATE APPS' --preview 'pacman -Sii {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo pacman -S --needed
-        ;;
-      'uninstall')
-        yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Sii {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro yay -Rs --confirm
-        ;;
-      esac
+      package_manager="pacman"
     fi
     ;;
-  'Ubuntu' | 'Debian')
-    case "$action" in
-    'install')
-      sudo apt update
-      apt list --installed | fzf --multi --header 'UNINSTALL APPS' --preview 'apt info {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo apt uninstall
-      ;;
-    'update')
-      sudo apt update
-      apt list --installed | fzf --multi --header 'UPDATE APPS' --preview 'apt info {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo apt install
-      ;;
-    'uninstall')
-      apt list --installed | fzf --multi --header 'UNINSTALL APPS' --preview 'apt info {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo apt uninstall
-      ;;
-    esac
+  'ubuntu' | 'debian')
+    package_manager="apt"
     ;;
-  'Fedora' | 'CentOS' | 'RedHat')
-    case "$action" in
-    'install')
-      dnf list --available | fzf --multi --header 'INSTALL APPS' --preview 'dnf info {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo dnf install
-      ;;
-    'update')
-      sudo apt update
-      dnf list --installed | fzf --multi --header 'UPDATE APPS' --preview 'dnf info {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo dnf install
-      ;;
-    'uninstall')
-      dnf list --installed | fzf --multi --header 'UNINSTALL APPS' --preview 'dnf info {1}' ${_FZF_DEFAULT_OPTS[@]} | xargs -ro sudo dnf uninstall
-      ;;
-    esac
+  'fedora' | 'centos' | 'rhel')
+    package_manager="dnf"
     ;;
   *)
-    echo "Unsupported distribution: $distro"
-    return 1
+    echo "Error: Unsupported distribution: \"$distro\". Please specify a package manager with -p or --package-manager" >&2
+    exit 1
+    ;;
+  esac
+  echo "$package_manager"
+}
+
+_pacman_manage() {
+  local action=$1
+  case "$action" in
+  'install')
+    pacman -Slq | fzf --multi --header 'INSTALL APPS' --preview 'pacman -Sii {1}' | xargs -ro sudo pacman -S --needed
+    ;;
+  'update')
+    pacman -Quq | fzf --multi --header 'UPDATE APPS' --preview 'pacman -Sii {1}' | xargs -ro sudo pacman -S --needed
+    ;;
+  'uninstall')
+    pacman -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'pacman -Qii {1}' | xargs -ro sudo pacman -Rs --confirm
+    ;;
+  'fetch')
+    sudo pacman -Sy
     ;;
   esac
 }
 
-if [ $# -eq 0 ]; then
-  show_help
-  exit 0
-fi
+_yay_manage() {
+  local action=$1
+  case "$action" in
+  'install')
+    yay -Slq | sort -u | fzf --multi --header 'INSTALL APPS' --preview 'yay -Sii {1}' | xargs -ro yay -S --needed
+    ;;
+  'update')
+    yay -Quq | fzf --multi --header 'UPDATE APPS' --preview 'yay -Sii {1}' | xargs -ro yay -S --needed
+    ;;
+  'uninstall')
+    yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Qii {1}' | xargs -ro yay -Rs --confirm
+    ;;
+  'fetch')
+    yay -Sy
+    ;;
+  esac
+}
 
-case $1 in
--i | --install) manage_app 'install' ;;
--u | --update) manage_app 'update' ;;
--U | --uninstall) manage_app 'uninstall' ;;
--h | --help) show_help ;;
-*)
-  echo -e "Error: Unknown option '$1'"
-  echo
-  show_help
-  exit 1
-  ;;
-esac
+# WARNING: WIP
+_apt_manage() {
+  local action=$1
+  case "$action" in
+  'install')
+    apt list 2>/dev/null | fzf --multi --header 'INSTALL APPS' --preview 'apt show {1}' | cut -d '/' -f1 | xargs -ro sudo apt install
+    ;;
+  'update')
+    apt list --upgradable 2>/dev/null | fzf --multi --header 'UPDATE APPS' --preview 'apt show {1}' | cut -d '/' -f1 | xargs -ro sudo apt upgrade
+    ;;
+  'uninstall')
+    apt list --installed 2>/dev/null | fzf --multi --header 'UNINSTALL APPS' --preview 'apt show {1}' | cut -d '/' -f1 | xargs -ro sudo apt remove
+    ;;
+  'fetch')
+    sudo apt update
+    ;;
+  esac
+}
+
+# WARNING: WIP
+_dnf_manage() {
+  local action=$1
+  case "$action" in
+  'install')
+    dnf list available | fzf --multi --header 'INSTALL APPS' --preview 'dnf info {1}' | xargs -ro sudo dnf install
+    ;;
+  'update')
+    dnf list upgrades | fzf --multi --header 'UPDATE APPS' --preview 'dnf info {1}' | xargs -ro sudo dnf upgrade
+    ;;
+  'uninstall')
+    dnf list installed | fzf --multi --header 'UNINSTALL APPS' --preview 'dnf info {1}' | xargs -ro sudo dnf remove
+    ;;
+  'fetch')
+    sudo dnf check-update
+    ;;
+  esac
+}
+
+# WARNING: WIP
+_snap_mange() {
+  local action=$1
+  case "$action" in
+  'install')
+    snap find | fzf --multi --header 'INSTALL APPS' --preview 'snap info {1}' | xargs -ro sudo snap install
+    ;;
+  'update')
+    snap list | tail -n +2 | fzf --multi --header 'UPDATE APPS' --preview 'snap info {1}' | xargs -ro sudo snap refresh
+    ;;
+  'uninstall')
+    snap list | tail -n +2 | fzf --multi --header 'UNINSTALL APPS' --preview 'snap info {1}' | xargs -ro sudo snap remove
+    ;;
+  'fetch')
+    sudo snap refresh --list
+    ;;
+  esac
+}
+
+_flatpak_manage() {
+  local action=$1
+  case "$action" in
+  'install')
+    flatpak remote-ls --app --columns application | tail -n +1 | fzf --multi --header 'INSTALL APPS' | xargs -ro flatpak install
+    ;;
+  'update')
+    flatpak list --columns application | tail -n +1 | fzf --multi --header 'UPDATE APPS' --preview 'flatpak info {1}' | xargs -ro flatpak update
+    ;;
+  'uninstall')
+    flatpak list --columns application | tail -n +1 | fzf --multi --header 'UNINSTALL APPS' --preview 'flatpak info {1}' | xargs -ro flatpak uninstall
+    ;;
+  'fetch')
+    flatpak update --appstream
+    ;;
+  esac
+}
+
+_manage() {
+  local package_manager=$1
+  local action=$2
+  case "$package_manager" in
+  'pacman')
+    _pacman_manage "$action"
+    ;;
+  'yay')
+    _yay_manage "$action"
+    ;;
+  'apt')
+    _apt_manage "$action"
+    ;;
+  'dnf')
+    _dnf_manage "$action"
+    ;;
+  'snap')
+    _snap_mange "$action"
+    ;;
+  'flatpak')
+    _flatpak_manage "$action"
+    ;;
+  *)
+    echo "Unsupported package manager: $package_manager" >&2
+    exit 1
+    ;;
+  esac
+}
+
+main() {
+  local actions=()
+  local package_manager=""
+  local need_fetch=false
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+    -i | --install)
+      actions+=('install')
+      shift
+      ;;
+    -u | --update)
+      actions+=('update')
+      shift
+      ;;
+    -U | --uninstall)
+      actions+=('uninstall')
+      shift
+      ;;
+    -f | --fetch)
+      need_fetch=true
+      shift
+      ;;
+    -p | --package-manager)
+      if [[ -n "$2" ]]; then
+        package_manager=$2
+        shift 2
+      else
+        echo "Error: Package manager not specified after -p or --package-manager" >&2
+        exit 1
+      fi
+      ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      echo "Error: Unknown option \"$1\"" >&2
+      show_help
+      exit 1
+      ;;
+    esac
+  done
+
+  if [ ${#actions[@]} -eq 0 ]; then
+    show_help
+    exit 0
+  fi
+
+  if ! _has fzf; then
+    echo 'Error: fzf is not installed. Please install fzf to use this script.' >&2
+    exit 1
+  fi
+
+  if [ -z "$package_manager" ]; then
+    package_manager=$(_get_package_manager)
+  fi
+
+  if [ "$need_fetch" = true ]; then
+    _manage "$package_manager" 'fetch'
+  fi
+
+  for action in "${actions[@]}"; do
+    _manage "$package_manager" "$action"
+  done
+}
+
+main "$@"
