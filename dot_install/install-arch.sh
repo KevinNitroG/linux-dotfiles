@@ -149,3 +149,7 @@ case $user_input in
   ./install.sh
   ;;
 esac
+
+##########################################
+
+systemctl list-unit-files "cronie.service" &>/dev/null && sudo systemctl enable --now cronie.service
