@@ -1,8 +1,9 @@
-#/bin/bash
+#!/bin/bash
 
 CHEZMOI_DOTFILES='git@github.com:KevinNitroG/linux-dotfiles.git'
 
-export DISTRO=$(lsb_release -i | awk '{print $NF}')
+DISTRO=$(lsb_release -i | awk '{print $NF}')
+export DISTRO
 
 ##########################################
 
@@ -16,23 +17,23 @@ NPM_PACKAGES=(
 ##########################################
 
 has() {
-  command -v $1 >/dev/null
+  command -v "$1" >/dev/null
 }
 
 ##########################################
 
-read -p 'MAKE SURE YOU RUN THIS SCRIPT IN USER PRIVILEDGE? (y/N): ' user_input
+read -p -r 'MAKE SURE YOU RUN THIS SCRIPT IN USER PRIVILEDGE? (y/N): ' user_input
 
 case $user_input in
 [yY]) ;;
 *) exit 1 ;;
 esac
 
-read -p 'MAKE SURE YOU HAVE IMPORTED SSH, GPG KEY? (Y/n): ' user_input
+read -p -r 'MAKE SURE YOU HAVE IMPORTED SSH, GPG KEY? (Y/n): ' user_input
 
 case $user_input in
-[nN]) ;;
-*) continue ;;
+[nN]) exit 1 ;;
+*) ;;
 esac
 
 ##########################################
@@ -40,7 +41,8 @@ esac
 # NOTE: Use source instead of bash to avoid create subshell
 case "$DISTRO" in
 'Arch')
-  source <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh)
+  # shellcheck disable=SC1090
+  source <(curl -fsSL 'https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/main/dot_install/install-arch.sh')
   ;;
 *)
   echo 'Unsupport distro!'
@@ -88,9 +90,14 @@ if has npm; then
   mkdir -p ~/.npm-global/
 fi
 
+if has crontab; then
+  echo "INSTALL CRONTAB..."
+  crontab ~/.config/crontab/kevinnitro
+fi
+
 ##########################################
 
-read -p 'INSTALL OTHER PACKAGES? [Y/n]: ' user_input
+read -p -r 'INSTALL OTHER PACKAGES? [Y/n]: ' user_input
 
 case $user_input in
 [yY])

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 PACKAGES=(
   # Essentials
@@ -46,6 +46,7 @@ PACKAGES=(
   # Development, languages, interpreters, compilers, etc
   # 'go'
   # 'pnpm'
+  # 'yarn'
   'clang'
   'cmake'
   'create-react-app'
@@ -56,7 +57,6 @@ PACKAGES=(
   'pyenv'
   'python-pip'
   'rustup'
-  'yarn'
 
   # Formatter, Linter
   # 'actionlint'
@@ -122,29 +122,30 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 
 # INSTALL PACKAGES
 echo 'INSTALLING PACKAGES...'
-yay -S $PACKAGES --noconfirm
+yay -S "${PACKAGES[@]}" --noconfirm
 
 # INSTALL CHEZMOI
 echo 'INSTALLING OHMYZSH...'
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # INSTALL LAPTOP STUFF
-read -p 'INSTALL LAPTOP STUFF? [y/N]: ' user_input
+read -p -r 'INSTALL LAPTOP STUFF? [y/N]: ' user_input
 
 case $user_input in
 [yY])
   echo 'INSTALLING LAPTOP STUFF...'
-  yay -S $PACKAGES_LAPTOP --noconfirm
+  yay -S "${PACKAGES_LAPTOP[@]}" --noconfirm
   ;;
 esac
 
 # INSTALL HYPRDOTS
-read -p 'INSTALL HYPRDOTS? [Y/n]: ' user_input
+read -p -r 'INSTALL HYPRDOTS? [Y/n]: ' user_input
 
 case $user_input in
 [nN]) ;;
 *)
   git clone --depth 1 https://github.com/prasanthrangan/hyprdots ~/HyDE
+  # shellcheck disable=SC2164
   cd ~/HyDE/Scripts
   ./install.sh
   ;;
