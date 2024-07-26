@@ -134,7 +134,7 @@ unsetopt BEEP # Prevents beeps in general
 # Ignore command match the regex
 zshaddhistory() {
   local line=${1%%$'\n'}
-  [[ ! $line =~ "password|secret|private|BBbb" ]]
+  [[ ! $line =~ "password|secret|private|BBb" ]]
 }
 
 
