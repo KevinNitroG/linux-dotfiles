@@ -7,6 +7,7 @@ PACKAGES=(
   'lazygit'
   'tmux'
   'wget'
+  'zsh'
 
   # Terminal
   'alacritty'
@@ -130,9 +131,9 @@ echo 'INSTALLING OHMYZSH...'
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # INSTALL LAPTOP STUFF
-read -p -r 'INSTALL LAPTOP STUFF? [y/N]: ' user_input
+read -p -r 'INSTALL LAPTOP STUFF? [y/N]: ' yn
 
-case $user_input in
+case $yn in
 [yY])
   echo 'INSTALLING LAPTOP STUFF...'
   yay -S "${PACKAGES_LAPTOP[@]}" --noconfirm
@@ -140,9 +141,9 @@ case $user_input in
 esac
 
 # INSTALL HYPRDOTS
-read -p -r 'INSTALL HYPRDOTS? [Y/n]: ' user_input
+read -p -r 'INSTALL HYPRDOTS? [Y/n]: ' yn
 
-case $user_input in
+case $yn in
 [nN]) ;;
 *)
   git clone --depth 1 https://github.com/prasanthrangan/hyprdots ~/HyDE

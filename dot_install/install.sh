@@ -22,16 +22,16 @@ has() {
 
 ##########################################
 
-read -p -r 'MAKE SURE YOU RUN THIS SCRIPT IN USER PRIVILEDGE? (y/N): ' user_input
+read -p -r 'MAKE SURE YOU RUN THIS SCRIPT IN USER PRIVILEDGE? (y/N): ' yn
 
-case $user_input in
+case $yn in
 [yY]) ;;
 *) exit 1 ;;
 esac
 
-read -p -r 'MAKE SURE YOU HAVE IMPORTED SSH, GPG KEY? (Y/n): ' user_input
+read -p -r 'MAKE SURE YOU HAVE IMPORTED SSH, GPG KEY? (Y/n): ' yn
 
-case $user_input in
+case $yn in
 [nN]) exit 1 ;;
 *) ;;
 esac
@@ -97,9 +97,9 @@ fi
 
 ##########################################
 
-read -p -r 'INSTALL OTHER PACKAGES? [Y/n]: ' user_input
+read -p -r 'INSTALL OTHER PACKAGES (pip, npm,...)? [Y/n]: ' yn
 
-case $user_input in
+case $yn in
 [yY])
   if has pip; then
     pip install "${PIP_PACKAGES[@]}"
