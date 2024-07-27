@@ -1,11 +1,11 @@
-; Ref: https://github.com/garybernhardt/dotfiles/blob/main/.gitconfig
+# Ref: https://github.com/garybernhardt/dotfiles/blob/main/.gitconfig
 
 [include]
   path = .config/delta/themes/catppuccin/catppuccin.gitconfig
 
 [core]
   editor = nvim
-  autocrlf = false
+  autocrlf = input # "input", "true", "false": https://stackoverflow.com/a/41282375/23173098
   longpaths = true
   pager = delta
 
@@ -21,7 +21,7 @@
   line-numbers = true
   show-syntax-themes = true
   hyperlinks = true
-  ; hyperlinks-file-link-format = "vscode://file/{path}:{line}"
+  # hyperlinks-file-link-format = "vscode://file/{path}:{line}"
 
 
 [merge]
@@ -40,7 +40,7 @@
   name = KevinNitroG
   email = trannguyenthaibinh46@gmail.com
   signingkey = 071E9CD8A2D41057
-  ; signingkey = ~/.ssh/id_ed25519.pub
+  # signingkey = ~/.ssh/id_ed25519.pub
 
 [alias]
   s = status
