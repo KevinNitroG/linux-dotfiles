@@ -51,7 +51,6 @@ PACKAGES=(
   # 'yarn'
   'clang'
   'cmake'
-  'create-react-app'
   'docker'
   'gdb'
   'nodejs'

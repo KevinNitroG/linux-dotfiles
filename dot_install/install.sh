@@ -12,6 +12,7 @@ PIP_PACKAGES=(
 
 NPM_PACKAGES=(
   'commitizen'
+  'create-react-app'
 )
 
 ##########################################
