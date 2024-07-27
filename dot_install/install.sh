@@ -52,6 +52,12 @@ esac
 
 ##########################################
 
+# Change default shell to zsh
+if has zsh; then
+  echo "CHANGE DEFAULT SHELL TO ZSH..."
+  chsh -s "$(which zsh)"
+fi
+
 # RESTORE CHEZMOI
 if has chezmoi; then
   echo 'CHEZMOI RESTORE...'
