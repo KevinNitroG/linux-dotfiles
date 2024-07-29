@@ -111,12 +111,12 @@ case $yn in
   if has pip; then
     pip install "${PIP_PACKAGES[@]}"
   else
-    echo 'No pip installed!'
+    echo 'PIP IS NOT INSTALLED!'
   fi
   if has npm; then
     npm install -g "${NPM_PACKAGES[@]}"
   else
-    echo 'No NPM installed!'
+    echo 'NPM IS NOT INSTALLED!'
   fi
   ;;
 esac

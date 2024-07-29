@@ -2,6 +2,7 @@
 
 PACKAGES=(
   # Essentials
+  'chezmoi'
   'git'
   'google-chrome'
   'lazygit'
@@ -118,20 +119,24 @@ echo 'UPDATE SOURCES...'
 sudo pacman -Syu
 
 # INSTALL YAY
-echo 'INSTALLING YAY...'
-sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd ..
+if ! has yay; then
+  echo 'INSTALLING YAY...'
+  sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd ..
+else
+  echo 'YAY INSTALLED'
+fi
 
 # INSTALL PACKAGES
 echo 'INSTALLING PACKAGES...'
 yay -S "${PACKAGES[@]}" --noconfirm
 
-# INSTALL CHEZMOI
-echo 'INSTALLING OHMYZSH...'
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# NOTE: Already managed by chezmoi
+# INSTALL OHMYZSH
+# echo 'INSTALLING OHMYZSH...'
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # INSTALL LAPTOP STUFF
 read -p -r 'INSTALL LAPTOP STUFF? [y/N]: ' yn
-
 case $yn in
 [yY])
   echo 'INSTALLING LAPTOP STUFF...'
@@ -141,14 +146,12 @@ esac
 
 # INSTALL HYPRDOTS
 read -p -r 'INSTALL HYPRDOTS? [Y/n]: ' yn
-
 case $yn in
 [nN]) ;;
 *)
   git clone --depth 1 https://github.com/prasanthrangan/hyprdots ~/HyDE
-  # shellcheck disable=SC2164
-  cd ~/HyDE/Scripts
-  ./install.sh
+  chmod +x ~/Hyde/Scripts/install.sh
+  ~/Hyde/Scripts/install.sh
   ;;
 esac
 
