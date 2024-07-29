@@ -72,11 +72,13 @@ has() {
 declare -A _EVALX_COMMANDS=( 
   [clean_flatpak]='flatpak uninstall --unused'
   [clean_pacman]='sudo pacman -Scc'
+  [create_python_venv]='python -m venv .venv'
   [echo_key_press]='echo $(read -k 1)'
   [get_my_ip]='curl http://ifconfig.me/ip && echo'
   [source_Hyde_completion]='source Hyde.zsh'
   [source_chezmoi_completion]='source <(chezmoi completion zsh)'
   [source_npm_completion]='source <(npm completion)'
+  [source_python_venv]='source .venv/bin/activate'
   [source_warp_cli_completion]='source <(warp-cli generate-completions zsh)'
   [start_ssh_agent]='eval "$(ssh-agent -s)"'
 )
@@ -232,6 +234,8 @@ bindkey -s '^d' 'yzcd\n'
 # Cd
 alias cdc='cd ~/.config/'
 alias cdcm='cd ~/.local/share/chezmoi/'
+alias cdd='cd ~/Documents/'
+alias cddl='cd ~/Downloads/'
 alias cdg='cd ~/gits/'
 alias cdnv='cd ~/.config/nvim/'
 
