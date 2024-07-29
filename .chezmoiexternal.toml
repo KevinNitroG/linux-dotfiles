@@ -1,60 +1,90 @@
+# OH-MY-ZSH
+
+[".oh-my-zsh"]
+type = "git-repo"
+url = "https://github.com/ohmyzsh/ohmyzsh.git"
+
+[".oh-my-zsh/custom/plugins/fzf-tab"]
+type = "git-repo"
+url = "https://github.com/Aloxaf/fzf-tab.git"
+
+[".oh-my-zsh/custom/plugins/wakatime"]
+type = "git-repo"
+url = "https://github.com/sobolevn/wakatime-zsh-plugin.git"
+
+[".oh-my-zsh/custom/plugins/zsh-256color"]
+type = "git-repo"
+url = "https://github.com/chrissicool/zsh-256color"
+
+[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+type = "git-repo"
+url = "https://github.com/zsh-users/zsh-autosuggestions"
+
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+type = "git-repo"
+url = "https://github.com/zsh-users/zsh-syntax-highlighting"
+
+##########################################
+
+# GITS
+
 [".gits/useful-script"]
 type = "git-repo"
 url = "https://github.com/HoangTran0410/useful-script.git"
-refreshPeriod = "168h"
 
 [".gits/bypass-paywalls-chrome"]
 type = "git-repo"
 url = "https://github.com/iamadamdev/bypass-paywalls-chrome.git"
-refreshPeriod = "168h"
+
+##########################################
+
+# CONFIG
+
+[".config/nvim"]
+type = "git-repo"
+url = "git@github.com:KevinNitroG/Alexis12119-nvim.git"
 
 [".config/alacritty/themes/catppuccin"]
 type = "git-repo"
 url = "https://github.com/catppuccin/alacritty.git"
-refreshPeriod = "168h"
-
-[".githelpers"]
-type = "file"
-url = "https://raw.githubusercontent.com/stevearc/dotfiles/master/.githelpers"
-refreshPeriod = "168h"
 
 [".config/yazi/theme.toml"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/yazi/main/themes/mocha.toml"
-refreshPeriod = "168h"
 
 [".config/yazi/Catppuccin-mocha.tmTheme"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/bat/main/themes/Catppuccin%20Mocha.tmTheme"
-refreshPeriod = "168h"
 
 [".config/bat/themes/Catppuccin Mocha.tmTheme"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/bat/main/themes/Catppuccin%20Mocha.tmTheme"
-refreshPeriod = "168h"
 
 [".config/delta/themes/catppuccin"]
 type = "git-repo"
 url = "https://github.com/catppuccin/delta.git"
-refreshPeriod = "168h"
 
 [".config/kitty/themes/mocha.conf"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/mocha.conf"
-refreshPeriod = "168h"
 
 [".config/glow/themes/catppuccin-mocha.json"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/glamour/main/themes/catppuccin-mocha.json"
-refreshPeriod = "168h"
 
 [".config/zathura/catppuccin-mocha"]
 type = "file"
 url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha"
-refreshPeriod = "168h"
 
 [".config/sddm/themes/"]
 type = "archive"
 url = "https://github.com/catppuccin/sddm/releases/latest/download/catppuccin-mocha.zip"
 include = ["**/*"]
-refreshPeriod = "168h"
+
+##########################################
+
+# UTILS
+
+[".githelpers"]
+type = "file"
+url = "https://raw.githubusercontent.com/stevearc/dotfiles/master/.githelpers"
