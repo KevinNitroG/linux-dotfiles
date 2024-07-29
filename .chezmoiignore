@@ -1,5 +1,5 @@
 # vim: set ft=gitignore :
 
 # Hyprland
-~/.config/hypr/*
-!/.config/hypr/userprefs.conf
+.config/hypr/*
+!.config/hypr/userprefs.conf
