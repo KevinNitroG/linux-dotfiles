@@ -104,7 +104,21 @@ fi
 
 if has docker; then
   echo "SETUP DOCKER..."
+  sudo rm "$HOME/.docker/" -rf || true
+  sudo groupadd docker
   sudo usermod -aG docker "$USER"
+  newgrp docker
+fi
+
+if has kanata; then
+  echo "SETUP KANATA..."
+  sudo groupadd uinput
+  sudo usermod -aG input "$USER"
+  sudo usermod -aG uinput "$USER"
+  echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee -a '/etc/udev/rules.d/99-input.rules'
+  sudo udevadm control --reload-rules && sudo udevadm trigger
+  echo 'please run "sudo modprobe uinput" for the first time run kanata'
+  systemctl --user enable kanata.service || echo 'Cannot enable kanata service. Try to enable manually :)'
 fi
 
 ##########################################
