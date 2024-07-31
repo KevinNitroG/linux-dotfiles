@@ -102,6 +102,11 @@ if has crontab; then
   crontab ~/.config/crontab/kevinnitro
 fi
 
+if has docker; then
+  echo "SETUP DOCKER..."
+  sudo usermod -aG docker "$USER"
+fi
+
 ##########################################
 
 read -p -r 'INSTALL OTHER PACKAGES (pip, npm,...)? [Y/n]: ' yn
