@@ -80,9 +80,11 @@ declare -A _EVALX_COMMANDS=(
   [source_npm_completion]='source <(npm completion)'
   [source_python_venv]='source .venv/bin/activate'
   [source_warp_cli_completion]='source <(warp-cli generate-completions zsh)'
-  [start_docker_service]='sudo systemctl start docker'
+  [start_docker_desktop_service]='sudo systemctl --user start docker-desktop'
+  [start_docker_service]='sudo systemctl --user start docker'
   [start_ssh_agent]='eval "$(ssh-agent -s)"'
-  [stop_docker_service]='sudo systemctl stop docker'
+  [stop_docker_desktop_service]='sudo systemctl --user stop docker-desktop'
+  [stop_docker_service]='sudo systemctl --user stop docker'
 )
 
 evalx() {

@@ -53,6 +53,7 @@ PACKAGES=(
   'clang'
   'cmake'
   'docker'
+  'docker-compose'
   'docker-desktop'
   'gdb'
   'nodejs'
