@@ -9,6 +9,7 @@ PACKAGES=(
   'tmux'
   'wget'
   'zsh'
+  'kanata-bin' # Change keyboard func
 
   # Terminal
   'alacritty'
@@ -47,6 +48,7 @@ PACKAGES=(
   'zoxide'
 
   # Development, languages, interpreters, compilers, etc
+  # 'docker-desktop' # Docker desktop on Arch is not stable
   # 'go'
   # 'pnpm'
   # 'yarn'
@@ -54,7 +56,6 @@ PACKAGES=(
   'cmake'
   'docker'
   'docker-compose'
-  'docker-desktop'
   'gdb'
   'nodejs'
   'npm'
@@ -100,7 +101,7 @@ PACKAGES=(
 
   # Other but IDK what it is
   # 'pacman-contrib' # For paccache
-  'fuse3' # for rclone mount --daemon
+  'fuse3' # For rclone mount --daemon
   'gtk4'
   'lsb-release'
   'tree'
