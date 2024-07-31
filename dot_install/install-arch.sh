@@ -32,6 +32,7 @@ PACKAGES=(
   'glow'
   'jq'
   'lazydocker'
+  'lazydocker'
   'rclone'
   'ripgrep'
   'rsync'
