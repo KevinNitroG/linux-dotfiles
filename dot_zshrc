@@ -75,6 +75,9 @@ declare -A _EVALX_COMMANDS=(
   [create_python_venv]='python -m venv .venv'
   [echo_key_press]='echo $(read -k 1)'
   [get_my_ip]='curl http://ifconfig.me/ip && echo'
+  [git_fetch_prune]='git fetch --prune'
+  [pacman_log]='bat /var/log/pacman.log'
+  [restart_kanata_service]='systemctl --user restart kanata.service'
   [source_Hyde_completion]='source Hyde.zsh'
   [source_chezmoi_completion]='source <(chezmoi completion zsh)'
   [source_npm_completion]='source <(npm completion)'
@@ -85,7 +88,6 @@ declare -A _EVALX_COMMANDS=(
   [start_ssh_agent]='eval "$(ssh-agent -s)"'
   [stop_docker_desktop_service]='systemctl --user stop docker-desktop'
   [stop_docker_service]='sudo systemctl stop docker.service docker.socket'
-  [restart_kanata_service]='systemctl --user restart kanata.service'
 )
 
 evalx() {
