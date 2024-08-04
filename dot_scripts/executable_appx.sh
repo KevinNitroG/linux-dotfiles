@@ -82,7 +82,7 @@ _pacman_manage() {
     pacman -Quq | fzf --multi --header 'UPDATE APPS' --preview 'pacman -Sii {1}' | xargs -ro sudo pacman -S --needed
     ;;
   'uninstall')
-    pacman -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'pacman -Qii {1}' | xargs -ro sudo pacman -Rs --confirm
+    pacman -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'pacman -Qii {1}' | xargs -ro sudo pacman -Rssuc --confirm
     ;;
   'fetch')
     sudo pacman -Sy
@@ -100,7 +100,7 @@ _yay_manage() {
     yay -Quq | fzf --multi --header 'UPDATE APPS' --preview 'yay -Sii {1}' | xargs -ro yay -S --needed
     ;;
   'uninstall')
-    yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Qii {1}' | xargs -ro yay -Rs --confirm
+    yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Qii {1}' | xargs -ro yay -Rssuc --confirm
     ;;
   'fetch')
     yay -Sy
