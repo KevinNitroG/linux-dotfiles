@@ -19,6 +19,7 @@ Options:
   -i, --install           Install apps
   -u, --update            Update apps
   -U, --uninstall         Uninstall apps
+  -UU, --uninstall-clean  Uninstall apps and clean dependencies (But watch out!)
   -f, --fetch             Fetch updates for package repositories (priority)
   -p, --package-manager   Specify package manager
                             [pacman|yay|apt|dnf|snap|flatpak]
@@ -82,7 +83,10 @@ _pacman_manage() {
     pacman -Quq | fzf --multi --header 'UPDATE APPS' --preview 'pacman -Sii {1}' | xargs -ro sudo pacman -S --needed
     ;;
   'uninstall')
-    pacman -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'pacman -Qii {1}' | xargs -ro sudo pacman -Rssuc --confirm
+    pacman -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'pacman -Qii {1}' | xargs -ro sudo pacman -Rs --confirm
+    ;;
+  'uninstall-clean')
+    pacman -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'pacman -Qii {1}' | xargs -ro yay -Rssucn --confirm
     ;;
   'fetch')
     sudo pacman -Sy
@@ -100,7 +104,10 @@ _yay_manage() {
     yay -Quq | fzf --multi --header 'UPDATE APPS' --preview 'yay -Sii {1}' | xargs -ro yay -S --needed
     ;;
   'uninstall')
-    yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Qii {1}' | xargs -ro yay -Rssuc --confirm
+    yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Qii {1}' | xargs -ro yay -Rs --confirm
+    ;;
+  'uninstall-clean')
+    yay -Qq | fzf --multi --header 'UNINSTALL APPS' --preview 'yay -Qii {1}' | xargs -ro yay -Rssucn --confirm
     ;;
   'fetch')
     yay -Sy
@@ -121,6 +128,9 @@ _apt_manage() {
   'uninstall')
     apt list --installed | fzf --multi --header 'UNINSTALL APPS' --preview 'apt show {1}' | xargs -ro sudo apt remove
     ;;
+  'uninstall-clean')
+    apt list --installed | fzf --multi --header 'UNINSTALL APPS' --preview 'apt show {1}' | xargs -ro sudo apt remove && sudo apt --purge autoremove
+    ;;
   'fetch')
     sudo apt update
     ;;
@@ -140,6 +150,9 @@ _dnf_manage() {
   'uninstall')
     dnf list installed | fzf --multi --header 'UNINSTALL APPS' --preview 'dnf info {1}' | xargs -ro sudo dnf remove
     ;;
+  'uninstall-clean')
+    dnf list installed | fzf --multi --header 'UNINSTALL APPS' --preview 'dnf info {1}' | xargs -ro sudo dnf remove && sudo dnf autoremove
+    ;;
   'fetch')
     sudo dnf check-update
     ;;
@@ -156,7 +169,7 @@ _snap_mange() {
   'update')
     snap list | tail -n +2 | fzf --multi --header 'UPDATE APPS' --preview 'snap info {1}' | xargs -ro sudo snap refresh
     ;;
-  'uninstall')
+  'uninstall' | 'uninstall-clean')
     snap list | tail -n +2 | fzf --multi --header 'UNINSTALL APPS' --preview 'snap info {1}' | xargs -ro sudo snap remove
     ;;
   'fetch')
@@ -174,7 +187,7 @@ _flatpak_manage() {
   'update')
     flatpak list --columns application | tail -n +1 | fzf --multi --header 'UPDATE APPS' --preview 'flatpak info {1}' | xargs -ro flatpak update
     ;;
-  'uninstall')
+  'uninstall' | 'uninstall-clean')
     flatpak list --columns application | tail -n +1 | fzf --multi --header 'UNINSTALL APPS' --preview 'flatpak info {1}' | xargs -ro flatpak uninstall
     ;;
   'fetch')
@@ -228,6 +241,10 @@ main() {
       ;;
     -U | --uninstall)
       actions+=('uninstall')
+      shift
+      ;;
+    -UU | --uninstall-clean)
+      actions+=('uninstall-clean')
       shift
       ;;
     -f | --fetch)
