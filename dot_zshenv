@@ -79,3 +79,9 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --ignore-file $H
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT='-c'
+
+
+##########################################
+
+# ZOXIDE
+export ZOXIDE_CMD_OVERRIDE="cd"
