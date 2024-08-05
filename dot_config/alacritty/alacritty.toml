@@ -2,9 +2,7 @@
 
 live_config_reload = true
 
-import = [
-    "~/.config/alacritty/themes/catppuccin/catppuccin-mocha.toml"
-]
+import = ["~/.config/alacritty/themes/catppuccin/catppuccin-mocha.toml"]
 
 [env]
 # TERM = "xterm-256color"
@@ -17,9 +15,9 @@ program = "zsh"
 [window]
 padding = { x = 2, y = 2 }
 dynamic_padding = true
-decorations = "None" # Full or None
+decorations = "None"       # Full or None
 opacity = 0.9
-blur = false # don't work on hyprland
+blur = false               # don't work on hyprland
 startup_mode = "Maximized"
 
 [scrolling]
@@ -38,10 +36,10 @@ draw_bold_text_with_bright_colors = false
 
 [cursor]
 style = { shape = "Beam", blinking = "Off" }
-vi_mode_style = {shape = "Block", blinking = "Off"}
+vi_mode_style = { shape = "Block", blinking = "Off" }
 
 [mouse]
-bindings = [ { mouse = "Right", mods = "Control", action = "Paste" } ]
+bindings = [{ mouse = "Right", mods = "Control", action = "Paste" }]
 hide_when_typing = true
 
 [terminal]
