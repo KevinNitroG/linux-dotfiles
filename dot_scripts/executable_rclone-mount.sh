@@ -5,7 +5,7 @@ if ! rclone --version &>/dev/null; then
   exit 1
 fi
 
-MOUNT_POINT='~/mount/rclone/'
+MOUNT_POINT="$HOME/mount/rclone/"
 ARGS=(
   '--buffer-size=512M'
   '--daemon'

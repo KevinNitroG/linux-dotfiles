@@ -38,9 +38,11 @@ _has() {
 
 _get_distro() {
   if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     . /etc/os-release
     echo "$ID"
   elif [ -f /etc/lsb-release ]; then
+    # shellcheck disable=SC1091
     . /etc/lsb-release
     echo "$DISTRIB_ID"
   else
