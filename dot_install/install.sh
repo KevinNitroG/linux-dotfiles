@@ -117,8 +117,15 @@ if has kanata; then
   sudo usermod -aG uinput "$USER"
   echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' | sudo tee -a '/etc/udev/rules.d/99-input.rules'
   sudo udevadm control --reload-rules && sudo udevadm trigger
-  echo 'please run "sudo modprobe uinput" for the first time run kanata'
+  sudo modprobe uinput || echo 'please run "sudo modprobe uinput" for the first time run kanata'
   systemctl --user enable kanata.service || echo 'Cannot enable kanata service. Try to enable manually :)'
+fi
+
+if has rclone && [ -f "$HOME/.config/rclone/rclone.conf" ]; then
+  echo "SETUP MOUNTING RCLONE DRIVE..."
+  mkdir -p "$HOME/mount/rclone-drives"
+  systemctl --user start rclone-drives.services
+  systemctl --user enable rclone-drives.services
 fi
 
 ##########################################
