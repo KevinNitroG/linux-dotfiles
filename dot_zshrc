@@ -67,11 +67,11 @@ source $ZSH/oh-my-zsh.sh
 # UTILS
 
 has() {
-	command -v $1 >/dev/null
+  command -v $1 >/dev/null
 }
 
 # EVALX
-declare -A _EVALX_COMMANDS=( 
+declare -A _EVALX_COMMANDS=(
   [clean_flatpak]='flatpak uninstall --unused'
   [clean_pacman]='sudo pacman -Scc'
   [create_python_venv]='python -m venv .venv'
@@ -182,13 +182,13 @@ fi
 if has eza; then
   EZA_OPTS=(--group-directories-first -s Name -I '.DS_Store' --icons=auto --colour=always)
   alias l="eza -lh  $EZA_OPTS" # long list
-	alias ls="exa -1 $EZA_OPTS" # Normal ls
-	alias ll="exa -lag $EZA_OPTS"
+  alias ls="exa -1 $EZA_OPTS" # Normal ls
+  alias ll="exa -lag $EZA_OPTS"
   alias ld="eza -lhD $EZA_OPTS" # long list dirs
   alias lt="eza --icons=auto --tree $EZA_OPTS" # list folder as tree
 else
-	alias ls='ls -A --color=auto'
-	alias ll='ls -lAg --color=auto'
+  alias ls='ls -A --color=auto'
+  alias ll='ls -lAg --color=auto'
 fi
 
 # Change directory
@@ -205,7 +205,7 @@ alias mkdir='mkdir -p'
 cmc() {
   { [ -n "$1" ] && chezmoi git "commit -m \"$1\"" || chezmoi git "commit"; } && chezmoi git push
 }
-cms() { 
+cms() {
   chezmoi re-add
   chezmoi git "f" || { echo 'No "f" alias for git!'; cmc; }
 }
@@ -215,14 +215,14 @@ alias cme='chezmoi edit'
 
 # Tmux
 alias t='tmux'
-tks() { 
+tks() {
   if [ "$#" != "0" ]; then
     tmux kill-session -t $@
   else
     tmux kill-server
   fi
 }
-# ta() { 
+# ta() {
 #   if [ "$#" != "0" ]; then
 #     tmux attach -t $@
 #   else
@@ -231,7 +231,7 @@ tks() {
 # }
 
 # NOTE: Src: https://dev.to/serhatteker/restore-tmux-sessions-after-reboot-7g6
-ta() 
+ta()
 {
   pgrep -vx tmux > /dev/null && \
     tmux new -d -s delete-me && \
@@ -266,6 +266,13 @@ if has rsync; then
   alias rmv='rsync --recursive --times --progress --stats --human-readable --remove-source-files'
 fi
 
+# Explorer
+if has dolphin; then
+  function e() {
+    dolphin "$@" &
+  }
+fi
+
 # Others
 alias c='clear'
 alias cls='clear'
@@ -293,10 +300,10 @@ bindkey -s '^[R' 'rl\n'
 # FZF
 
 _fzf_open_path() {
-	local input_path=$1
-	if [ ! -n "$input_path" ]; then
-		return 1
-	fi
+  local input_path=$1
+  if [ ! -n "$input_path" ]; then
+    return 1
+  fi
   declare -A cmds=(
     [bat]='bat $input_path'
     [cat]='cat $input_path'
@@ -306,42 +313,42 @@ _fzf_open_path() {
     [echo]='echo $input_path'
   )
   local cmd=$(printf "%s\n" "${(@k)cmds}" | fzf --prompt 'Select command> ')
-  eval "${cmds[$cmd]}" 
+  eval "${cmds[$cmd]}"
 }
 
 _fzf_get_path_using_fd() {
-	local input_path=$(
-		fd --type file |
-			fzf --prompt 'Files> ' \
-				--header 'CTRL-S: Switch between Files/Directories' \
-				--bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ Files ]] &&
+  local input_path=$(
+    fd --type file |
+    fzf --prompt 'Files> ' \
+      --header 'CTRL-S: Switch between Files/Directories' \
+      --bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ Files ]] &&
         echo "change-prompt(Files> )+reload(fd --type file)" ||
-        echo "change-prompt(Directories> )+reload(fd --type directory)"' \
-				--preview '[[ $FZF_PROMPT =~ Files ]] && bat --color=always --style=plain {} || tree -C {}'
-	)
-	echo "$input_path"
+    echo "change-prompt(Directories> )+reload(fd --type directory)"' \
+      --preview '[[ $FZF_PROMPT =~ Files ]] && bat --color=always --style=plain {} || tree -C {}'
+  )
+  echo "$input_path"
 }
 
 _fzf_get_path_using_rg() {
-	rm -f /tmp/rg-fzf-{r,f}
-	local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-	local INITIAL_QUERY="${*:-}"
-	local input_path=$(
-		fzf --ansi --disabled --query "$INITIAL_QUERY" \
+  rm -f /tmp/rg-fzf-{r,f}
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+  local INITIAL_QUERY="${*:-}"
+  local input_path=$(
+    fzf --ansi --disabled --query "$INITIAL_QUERY" \
       --bind "enter:become(echo {1})" \
-			--bind "start:reload:$RG_PREFIX {q}" \
-			--bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
-			--bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
+      --bind "start:reload:$RG_PREFIX {q}" \
+      --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+      --bind 'ctrl-s:transform:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
       echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
-      echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
-			--color "hl:-1:underline,hl+:-1:underline:reverse" \
-			--prompt '1. ripgrep> ' \
-			--delimiter : \
-			--header 'CTRL-S: Switch between ripgrep/fzf' \
-			--preview 'bat --color=always {1} --highlight-line {2} --style=plain' \
-			--preview-window 'up,60%,border-bottom,+{2}+3/3'
-	)
-	echo "$input_path"
+    echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
+      --color "hl:-1:underline,hl+:-1:underline:reverse" \
+      --prompt '1. ripgrep> ' \
+      --delimiter : \
+      --header 'CTRL-S: Switch between ripgrep/fzf' \
+      --preview 'bat --color=always {1} --highlight-line {2} --style=plain' \
+      --preview-window 'up,60%,border-bottom,+{2}+3/3'
+  )
+  echo "$input_path"
 }
 
 fdg() {
@@ -393,7 +400,7 @@ alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias bathelp='bat --plain --language=help'
 help() {
-    "$@" --help 2>&1 | bathelp
+  "$@" --help 2>&1 | bathelp
 }
 
 
@@ -403,45 +410,45 @@ help() {
 # Source: https://gist.github.com/guyzmo/146423d0cf7d3c0a46e10eeb66883905
 
 connect_wifi() {
-	local ssid
-	local conn
+  local ssid
+  local conn
 
-	nmcli device wifi rescan >/dev/null
-	ssid=$(nmcli device wifi list | tail -n +2 | grep -v '^  *\B--\B' | fzf -m | sed 's/^ *\*//' | awk '{print $1}')
+  nmcli device wifi rescan >/dev/null
+  ssid=$(nmcli device wifi list | tail -n +2 | grep -v '^  *\B--\B' | fzf -m | sed 's/^ *\*//' | awk '{print $1}')
 
-	if [ "x$ssid" != "x" ]; then
-		# check if the SSID has already a connection setup
-		conn=$(nmcli con | grep "$ssid" | awk '{print $1}' | uniq)
-		if [ "x$conn" = "x$ssid" ]; then
-			echo "Please wait while switching to known network $ssid…"
-			# if yes, bring up that connection
-			nmcli con up id "$conn"
-		else
-			echo "Please wait while connecting to new network $ssid…"
-			# if not connect to it and ask for the password
-			nmcli device wifi connect "$ssid"
-		fi
-	fi
+  if [ "x$ssid" != "x" ]; then
+    # check if the SSID has already a connection setup
+    conn=$(nmcli con | grep "$ssid" | awk '{print $1}' | uniq)
+    if [ "x$conn" = "x$ssid" ]; then
+      echo "Please wait while switching to known network $ssid…"
+      # if yes, bring up that connection
+      nmcli con up id "$conn"
+    else
+      echo "Please wait while connecting to new network $ssid…"
+      # if not connect to it and ask for the password
+      nmcli device wifi connect "$ssid"
+    fi
+  fi
 }
 
 get_current_wifi_password() {
-	nmcli device wifi show-password
+  nmcli device wifi show-password
 }
 
 get_wifi_password() {
-	local ssid
+  local ssid
   ssid=$(nmcli --colors=no --fields=NAME --terse connection show |
     fzf --preview='nmcli -s -g 802-11-wireless-security.psk connection show {} || echo "Cannot get password!"'
-      --preview-window='right,70%,border-left'
-    )
+    --preview-window='right,70%,border-left'
+  )
 
-	if [[ -z "$ssid" ]]; then
-		echo "No SSID was selected!"
-		return
-	fi
-	local password=$(nmcli -s -g 802-11-wireless-security.psk connection show $ssid)
-	echo "SSID: $ssid"
-	echo "PASSWORD: $password"
+  if [[ -z "$ssid" ]]; then
+    echo "No SSID was selected!"
+    return
+  fi
+  local password=$(nmcli -s -g 802-11-wireless-security.psk connection show $ssid)
+  echo "SSID: $ssid"
+  echo "PASSWORD: $password"
 }
 
 
