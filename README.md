@@ -108,6 +108,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/m
 
 #### Formatter
 
+- beautysh
 - doctoc
 - markdownlint
 - prettier
