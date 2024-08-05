@@ -39,25 +39,26 @@ export path=(
 
 # LIST OF PLUGINS TO USE IN OH-MY-ZSH
 plugins=(
-  git
-  gh
-  sudo
-  zsh-256color
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  history-substring-search # Always below zsh-syntax-highlighting
-  wakatime
-  fzf
-  fzf-tab
   # zsh-autocomplete
   archlinux
   docker
   docker-compose
-  tmux
   dotenv
   extract
   fancy-ctrl-z
+  fzf
+  fzf-tab
+  gh
+  git
+  sudo
+  tmux
+  wakatime
   zoxide
+  zsh-256color
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+
+  history-substring-search # Always below zsh-syntax-highlighting
 )
 source $ZSH/oh-my-zsh.sh
 
