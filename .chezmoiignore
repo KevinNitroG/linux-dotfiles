@@ -3,3 +3,6 @@
 # Hyprland
 .config/hypr/*
 !.config/hypr/userprefs.conf
+
+# SDDM
+.config/sddm/themes/*
