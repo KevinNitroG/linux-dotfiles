@@ -1,7 +1,7 @@
 #!/bin/bash
 
 URL="https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json"
-FILE_DIR="$HOME/.config/stylus"
+FILE_DIR="$HOME/.config/browser-data/stylus"
 FILE_PATH="$FILE_DIR/catppuccin.json"
 
 mkdir -p "$FILE_DIR"

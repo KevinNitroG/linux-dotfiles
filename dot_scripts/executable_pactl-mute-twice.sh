@@ -8,4 +8,5 @@ if ! command -v pactl >/dev/null 2>&1; then
 fi
 
 pactl set-sink-mute 0 toggle
+sleep 1
 pactl set-sink-mute 0 toggle
