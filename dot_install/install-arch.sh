@@ -2,14 +2,15 @@
 
 PACKAGES=(
   # Essentials
+  # 'google-chrome'
+  'brave-bin'
   'chezmoi'
   'git'
-  'google-chrome'
+  'kanata-bin' # Change keyboard func
   'lazygit'
   'tmux'
   'wget'
   'zsh'
-  'kanata-bin' # Change keyboard func
 
   # Terminal
   'alacritty'
