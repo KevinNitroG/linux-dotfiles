@@ -13,6 +13,7 @@ PIP_PACKAGES=(
 NPM_PACKAGES=(
   'commitizen'
   'create-react-app'
+  'tree-sitter-cli'
 )
 
 ##########################################
@@ -127,6 +128,13 @@ if has rclone && [ -f "$HOME/.config/rclone/rclone.conf" ]; then
   systemctl --user start rclone-drives.services
   systemctl --user enable rclone-drives.services
 fi
+
+# NOTE: Mason can do that bruh. Just 20h ago it was merged.
+#
+# if has Hyprland && has go; then
+#   echo "INSTALL HYPRLS..."
+#   go install github.com/ewen-lbh/hyprls/cmd/hyprls@latest
+# fi
 
 ##########################################
 
