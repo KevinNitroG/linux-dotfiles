@@ -181,12 +181,19 @@ fi
 
 # Ls
 if has eza; then
-  EZA_OPTS=(--group-directories-first -s Name -I '.DS_Store' --icons=auto --colour=always)
+  EZA_OPTS=(
+    '--colour=always'
+    '--group-directories-first'
+    '--icons=auto'
+    '--ignore-glob=".DS_Store|.idea|.venv|.vs|__pycache__|cache|debug|.git|node_modules|venv"'
+    '-s Name'
+  )
   alias l="eza -lh  $EZA_OPTS" # long list
   alias ls="exa -1 $EZA_OPTS" # Normal ls
-  alias ll="exa -lag $EZA_OPTS"
+  alias ll="exa -lag $EZA_OPTS" # Long list all
   alias ld="eza -lhD $EZA_OPTS" # long list dirs
-  alias lt="eza --icons=auto --tree $EZA_OPTS" # list folder as tree
+  alias lt="eza -T $EZA_OPTS" # list folder as tree
+  alias llt="eza -lagT $EZA_OPTS" # list folder as tree
 else
   alias ls='ls -A --color=auto'
   alias ll='ls -lAg --color=auto'

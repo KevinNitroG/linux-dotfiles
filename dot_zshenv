@@ -34,7 +34,8 @@ export EDITOR='nvim'
 export VISUAL="$EDITOR"
 export PAGER='bat' # 'less', 'more', 'bat', no 'delta'!
 export GIT_PAGER='delta' # 'less', 'more', 'bat', 'delta'
-export BROWSER='google-chrome-stable'
+export BROWSER='brave'
+# export BROWSER='google-chrome-stable'
 
 
 ##########################################
