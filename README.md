@@ -23,6 +23,7 @@
   - [Arch installation](#arch-installation)
   - [Rclone mount](#rclone-mount)
   - [Systemctl](#systemctl)
+  - [XDG](#xdg)
   - [Fingerprint](#fingerprint)
   - [Tmux](#tmux)
   - [Wallpaper](#wallpaper)
@@ -150,6 +151,16 @@ setfont ter-132n
 - Clean services
   ```sh
   systemctl reset-failed
+  ```
+
+### XDG
+
+- Set default application
+  > Example for Brave
+  ```sh
+  xdg-settings set default-web-browser brave-browser.desktop
+  xdg-mime default brave-browser.desktop x-scheme-handler/http
+  xdg-mime default brave-browser.desktop x-scheme-handler/https
   ```
 
 ### Fingerprint
