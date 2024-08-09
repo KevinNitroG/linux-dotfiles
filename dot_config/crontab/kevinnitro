@@ -5,5 +5,7 @@
 # Start tmux as user in order to read environment variables
 # @reboot /usr/bin/tmux new-session -d
 
+# NOTE: It doesn't work either
+#
 # Mute and unmute
-@reboot /home/kevinnitro/.scripts/pactl-mute-twice.sh
+# @reboot /home/kevinnitro/.scripts/pactl-mute-twice.sh
