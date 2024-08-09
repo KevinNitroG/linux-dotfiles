@@ -102,10 +102,11 @@ bash <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/m
 
 #### Linter
 
-- ruff
 - actionlint
 - cpplint
 - markdownlint
+- ruff
+- sqlfluff _(it's a formatter also)_
 
 #### Formatter
 
@@ -161,6 +162,7 @@ setfont ter-132n
   xdg-settings set default-web-browser brave-browser.desktop
   xdg-mime default brave-browser.desktop x-scheme-handler/http
   xdg-mime default brave-browser.desktop x-scheme-handler/https
+  xdg-mime default brave-browser.desktop x-scheme-handler/mailto
   ```
 
 ### Fingerprint
