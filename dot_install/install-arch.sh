@@ -16,6 +16,7 @@ PACKAGES=(
   'alacritty'
 
   # Text / Code Editor, IDE
+  'mysql-workbench'
   'neovim'
   'visual-studio-code-bin'
 
@@ -102,7 +103,8 @@ PACKAGES=(
 
   # Other but IDK what it is
   # 'pacman-contrib' # For paccache
-  'fuse3' # For rclone mount --daemon
+  'fuse3'         # For rclone mount --daemon
+  'gnome-keyring' # For MySQL Workbench
   'gtk4'
   'lsb-release'
   'tree'
