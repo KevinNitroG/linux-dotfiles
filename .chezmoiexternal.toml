@@ -85,6 +85,10 @@ type = "archive"
 url = "https://github.com/catppuccin/sddm/releases/latest/download/catppuccin-mocha.zip"
 include = ["**/*"]
 
+[".config/atac/key_bindings.toml"]
+type = "file"
+url = "https://raw.githubusercontent.com/Julien-cpsn/ATAC/main/key_bindings_templates/vim_key_bindings.toml"
+
 ##########################################
 
 # UTILS

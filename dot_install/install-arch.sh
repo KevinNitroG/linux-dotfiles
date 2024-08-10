@@ -19,11 +19,13 @@ PACKAGES=(
   'mysql-workbench'
   'neovim'
   'visual-studio-code-bin'
+  'zed'
 
   # CLI Power Basics
   # 'aria2'
   # 'trash-cli'
   # 'xsel'
+  'atac'
   'bat'
   'doggo'
   'exa'
