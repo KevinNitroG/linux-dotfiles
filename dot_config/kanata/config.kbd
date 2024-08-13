@@ -1,6 +1,14 @@
 ;; Ref: https://github.com/jtroo/kanata/issues/437#issuecomment-1584721072
 
 (defcfg
+  #|
+  This configuration will process all keys pressed inside of kanata, even if
+  they are not mapped in defsrc. This is so that certain actions can activate
+  at the right time for certain input sequences. By default, unmapped keys are
+  not processed through kanata due to a Windows issue related to AltGr. If you
+  use AltGr in your keyboard, you will likely want to follow the simple.kbd
+  file while unmapping lctl and ralt from defsrc.
+  |#
   process-unmapped-keys yes
 )
 
@@ -13,8 +21,8 @@
 )
 
 (deflayer default
-  grv    1        2        3        4        5        6        7        8        9        0        -        =        bspc
-  @tab   q        w        e        r        t        y        u        i        o        p        [        ]        \
+  @grv   1        2        3        4        5        6        7        8        9        0        -        =        bspc
+  tab    q        w        e        r        t        y        u        i        o        p        [        ]        \
   @caps  a        s        d        f        g        h        j        k        l        ;        '        ret
   lsft   z        x        c        v        b        n        m        ,        .        /        rsft
             lmet  lalt                      spc                                  rmet  rctl
@@ -30,7 +38,7 @@
 
 (defalias
   caps (tap-hold-press 200 200 caps lctl)
-  tab (tap-hold-press 200 200 tab (layer-toggle vim))
+  grv (tap-hold-press 200 200 grv (layer-toggle vim))
 
   ;; go to the start of the line
   start home
