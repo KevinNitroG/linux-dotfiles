@@ -6,6 +6,7 @@
 
 # ENVIRONMENT VARIABLES
 
+source "$HOME/.zshenv_private"
 export DISABLE_AUTO_UPDATE=true
 
 
@@ -86,3 +87,9 @@ export MANROFFOPT='-c'
 
 # ZOXIDE
 export ZOXIDE_CMD_OVERRIDE="cd"
+
+##########################################
+
+# ATAC
+export ATAC_MAIN_DIR="$HOME/.config/atac"
+export ATAC_KEY_BINDINGS="$HOME/.config/atac/key_bindings.toml"
