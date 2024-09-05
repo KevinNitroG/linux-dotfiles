@@ -19,6 +19,9 @@
     - [DAP](#dap)
     - [Linter](#linter)
     - [Formatter](#formatter)
+  - [4️⃣ TODO](#-todo)
+    - [Browser](#browser)
+      - [Brave](#brave)
 - [UTILS](#utils)
   - [Arch installation](#arch-installation)
   - [Rclone mount](#rclone-mount)
@@ -117,6 +120,28 @@ bash <(curl -fsSL https://raw.githubusercontent.com/KevinNitroG/linux-dotfiles/m
 - ruff
 - shfmt
 - stylua
+
+### 4️⃣ TODO
+
+#### Browser
+
+- Memory Saver
+  ```
+  www.youtube.com
+  www.messenger.com
+  ```
+
+##### Brave
+
+- Shield
+  - Custom lists
+    ```
+    https://abpvn.com/vip/kev.txt?ublock
+    https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/adblock/pro.txt
+    https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock.txt?_=rawlist
+    https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock-mining.txt?_=rawlist
+    ```
+  - Custom filters: [custom filter](./dot_config/browser-data/adblock/custom_filters.txt)
 
 ---
 
