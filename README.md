@@ -246,3 +246,4 @@ setfont ter-132n
 - https://github.com/rusty-electron/dotfiles
 - https://github.com/siduck/dotfiles
 - https://github.com/stevearc/dotfiles
+- https://github.com/wincent/wincent (Old dotfiles 😱)
