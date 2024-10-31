@@ -61,7 +61,7 @@
 
 (defalias
   caps (tap-hold-press 200 200 caps lctl)
-  esc (tap-hold-press 200 200 esc (layer-toggle esc))
+  esc (tap-hold-press 300 300 esc (layer-toggle esc))
   grv (tap-hold-press 200 200 grv (layer-toggle grv))
 
   ;; go to the start of the line
