@@ -1,7 +1,6 @@
+[general]
 # https://alacritty.org/config-alacritty.html
-
 live_config_reload = true
-
 import = ["~/.config/alacritty/themes/catppuccin/catppuccin-mocha.toml"]
 
 [env]
@@ -9,7 +8,7 @@ import = ["~/.config/alacritty/themes/catppuccin/catppuccin-mocha.toml"]
 TERM = "alacritty"
 TERMINAL = "alacritty"
 
-[shell]
+[terminal.shell]
 program = "zsh"
 
 [window]
