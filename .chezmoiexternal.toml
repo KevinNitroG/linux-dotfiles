@@ -36,9 +36,10 @@ url = "https://github.com/marlonrichert/zsh-autocomplete.git"
 type = "git-repo"
 url = "https://github.com/HoangTran0410/useful-script.git"
 
-[".gits/bypass-paywalls-chrome"]
-type = "git-repo"
-url = "https://github.com/iamadamdev/bypass-paywalls-chrome.git"
+# DCMA Taken down
+# [".gits/bypass-paywalls-chrome"]
+# type = "git-repo"
+# url = "https://github.com/iamadamdev/bypass-paywalls-chrome.git"
 
 ##########################################
 
