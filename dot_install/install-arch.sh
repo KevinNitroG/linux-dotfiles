@@ -85,6 +85,7 @@ PACKAGES=(
   # CLI Fun
   'cowsay'
   'fastfetch'
+  'figlet' # A program for making large letters out of ordinary text
   'lolcat'
 
   # Apps / Tools
