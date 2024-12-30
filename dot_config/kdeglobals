@@ -1,8 +1,14 @@
 [General]
-TerminalApplication=alacritty
+TerminalApplication=kitty
+
+[Icons]
+Theme=Tela-circle-dracula
+
+[Colors:View]
+BackgroundNormal=#00000000
 
 [KDE]
-ShowDeleteCommand=false
+widgetStyle=kvantum
 
-[PreviewSettings]
-MaximumRemoteSize=0
+[UiSettings]
+ColorScheme=*

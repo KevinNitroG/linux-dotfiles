@@ -19,6 +19,3 @@ chat.zalo.me##.tds-banner-download__container
 ! Remove Youtube channel icon
 www.youtube.com##.iv-branding
 www.youtube.com###movie_player > div.ytp-chrome-top > div.ytp-chrome-top-buttons > button.ytp-button.ytp-share-button.ytp-share-button-visible
-
-! Zalo banner Download PC
-chat.zalo.me###app-page > div.system-banner__container.--web.--main-window
